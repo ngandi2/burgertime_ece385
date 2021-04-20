@@ -22,38 +22,47 @@ module  color_mapper (
     // ['0x000000', '0xFFFFFF', '0x0000FF', '0xB6B6AA']
     always_comb
     begin
-        case (stage_color_index)
-            2'b00:
-            begin
-                Red = 8'h00;
-                Green = 8'h00;
-                Blue = 8'h00;
-            end
-            2'b01:
-            begin
-                Red = 8'hFF;
-                Green = 8'hFF;
-                Blue = 8'hFF;
-            end
-            2'b10:
-            begin
-                Red = 8'h00;
-                Green = 8'h00;
-                Blue = 8'hFF;
-            end
-            2'b11:
-            begin
-                Red = 8'hB6;
-                Green = 8'hB6;
-                Blue = 8'hAA;
-            end
-            default:
-            begin
-                Red = 8'h00;
-                Green = 8'h00;
-                Blue = 8'h00;
-            end
-			endcase
+        if (DrawX < 208 && DrawY < 200)
+        begin
+            case (stage_color_index)
+                2'b00:
+                begin
+                    Red = 8'h00;
+                    Green = 8'h00;
+                    Blue = 8'h00;
+                end
+                2'b01:
+                begin
+                    Red = 8'hFF;
+                    Green = 8'hFF;
+                    Blue = 8'hFF;
+                end
+                2'b10:
+                begin
+                    Red = 8'h00;
+                    Green = 8'h00;
+                    Blue = 8'hFF;
+                end
+                2'b11:
+                begin
+                    Red = 8'hB6;
+                    Green = 8'hB6;
+                    Blue = 8'hAA;
+                end
+                default:
+                begin
+                    Red = 8'h00;
+                    Green = 8'h00;
+                    Blue = 8'h00;
+                end
+            endcase
+        end
+        else
+        begin
+            Red = 8'h00;
+            Green = 8'h00;
+            Blue = 8'h00;
+        end
     end
     
 endmodule

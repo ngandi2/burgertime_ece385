@@ -176,12 +176,12 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	color_mapper cmap (
 		.DrawX(drawxsig), 
 		.DrawY(drawysig), 
-		.stage_color_index(stage_index), 
+		.stage_color_index(stage_color_index), 
 		.Red(Red), 
 		.Green(Green), 
 		.Blue(Blue)
 	);
 	
-	stageRAM stages (.data_In(), .write_address(), .read_address(drawysig * 208 + drawxsig), .we(1'b0), .Clk(MAX10_CLK1_50), .data_Out(stage_color_index));
+	stage_ram stages (.data(), .address(drawysig * 640 + drawxsig), .wren(1'b0), .clock(MAX10_CLK1_50), .q(stage_color_index));
 
 endmodule
