@@ -15,6 +15,7 @@
 
 module  color_mapper (
     input [9:0] DrawX, DrawY, 
+    input logic blank, 
     input logic [1:0] stage_color_index,
     output logic [7:0] Red, Green, Blue 
 );
@@ -22,7 +23,7 @@ module  color_mapper (
     // ['0x000000', '0xFFFFFF', '0x0000FF', '0xB6B6AA']
     always_comb
     begin
-        if (DrawX < 208 && DrawY < 200)
+        if (DrawX < 208 && DrawY < 200 && !blank)
         begin
             case (stage_color_index)
                 2'b00:
