@@ -23,7 +23,7 @@ module  color_mapper (
     // ['0x000000', '0xFFFFFF', '0x0000FF', '0xB6B6AA']
     always_comb
     begin
-        if (DrawX < 208 && DrawY < 200 && !blank)
+        if (DrawY < 400 && blank)
         begin
             case (stage_color_index)
                 2'b00:

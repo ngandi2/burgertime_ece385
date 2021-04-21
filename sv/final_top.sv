@@ -185,18 +185,18 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.Blue(Blue)
 	);
 
-	// always_comb
-	// begin
-	// 	xcoord = (drawxsig >> 1) - 56;
-	// 	ycoord = drawysig >> 1;
-	// 	if (xcoord < 0 || xcoord > 208)
-	// 	begin
-	// 		xcoord = 0;
-	// 		ycoord = 0;
-	// 	end
-	// end
+	always_comb
+	begin
+		xcoord = (drawxsig >> 1) - 56;
+		ycoord = drawysig >> 1;
+		if (xcoord < 0 || xcoord >= 208)
+		begin
+			xcoord = 0;
+			ycoord = 0;
+		end
+	end
 	
-	stage_ram stages (.data(), .address(drawysig * 640 + drawxsig), .wren(1'b0), .clock(MAX10_CLK1_50), .q(stage_color_index));
+	stage_ram stages (.data(), .address(ycoord * 640 + xcoord), .wren(1'b0), .clock(MAX10_CLK1_50), .q(stage_color_index));
 	sprite_ram sprites (.data(), .address(0), .wren(1'b0), .clock(MAX10_CLK1_50), .q(sprite_color_index));
 
 endmodule
