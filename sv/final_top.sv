@@ -160,7 +160,9 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 
 	logic [1:0] stage_color_index;
 	logic [2:0] sprite_color_index;
-	logic [9:0] xcoord, ycoord;
+	logic [9:0] xcoord, ycoord, chef_xcoord, chef_ycoord;
+	logic [3:0] spritesheet_x, spritesheet_y, spritesheet_xoffset, spritesheet_yoffset;
+	logic chef;
 
 //instantiate a vga_controller, ball, and color_mapper here with the ports.
 	vga_controller vga (
@@ -178,12 +180,20 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	color_mapper cmap (
 		.DrawX(drawxsig), 
 		.DrawY(drawysig), 
+		.chef(chef), 
 		.blank(blank),
 		.stage_color_index(stage_color_index), 
+		.sprite_color_index(sprite_color_index), 
 		.Red(Red), 
 		.Green(Green), 
 		.Blue(Blue)
 	);
+
+	// state machine will determine these later on
+	assign spritesheet_x = 4'h1;
+	assign spritesheet_y = 4'h0;
+	assign chef_xcoord = 96;
+	assign chef_ycoord = 141;
 
 	always_comb
 	begin
@@ -194,9 +204,27 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 			xcoord = 0;
 			ycoord = 0;
 		end
+		if (xcoord >= chef_xcoord && xcoord < chef_xcoord + 16 && ycoord >= chef_ycoord && ycoord < chef_ycoord + 16)
+		begin
+			spritesheet_xoffset = xcoord - chef_xcoord;
+			spritesheet_yoffset = ycoord - chef_ycoord;
+			chef = 1'b1;
+		end
+		else
+		begin
+			spritesheet_xoffset = 0;
+			spritesheet_yoffset = 0;
+			chef = 1'b0;
+		end
 	end
 	
 	stage_ram stages (.data(), .address(ycoord * 640 + xcoord), .wren(1'b0), .clock(MAX10_CLK1_50), .q(stage_color_index));
-	sprite_ram sprites (.data(), .address(0), .wren(1'b0), .clock(MAX10_CLK1_50), .q(sprite_color_index));
+	sprite_ram sprites (
+		.data(), 
+		.address((spritesheet_y * 16 + spritesheet_yoffset) * 240 + spritesheet_x * 16 + spritesheet_xoffset), 
+		.wren(1'b0), 
+		.clock(MAX10_CLK1_50), 
+		.q(sprite_color_index)
+	);
 
 endmodule
