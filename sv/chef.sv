@@ -5,6 +5,7 @@ module  chef (
 );
     
     logic [9:0] Chef_X_Pos, Chef_X_Motion, Chef_Y_Pos, Chef_Y_Motion, Chef_Size;
+	 logic valid;
 	 
     parameter [9:0] Chef_X_Center=96;   // Center position on the X axis
     parameter [9:0] Chef_Y_Center=141;  // Center position on the Y axis
@@ -16,6 +17,8 @@ module  chef (
     parameter [9:0] Chef_Y_Step=1;      // Step size on the Y axis
 
     assign Chef_Size = 1;
+	 
+	 stages_walls move_check (.Reset(Reset), .frame_clk(frame_clk), .Stage(3'b0), .keycode(keycode), .Chef_X_Pos(Chef_X_Pos), .Chef_Y_Pos(Chef_X_Pos), .valid(valid));
    
     always_ff @ (posedge Reset or posedge frame_clk)
     begin: Move_Chef
@@ -27,25 +30,10 @@ module  chef (
 				Chef_X_Pos <= Chef_X_Center;
         end
            
-        else 
+        else if (valid)
         begin 
-				 // Not sure how to make it stop bouncing without other glitches...
-				 if ( (Chef_Y_Pos + Chef_Size) >= Chef_Y_Max )  // Chef is at the bottom edge
-					  Chef_Y_Motion <= (~ (Chef_Y_Step) + 1'b1); 
-					  
-				 else if ( (Chef_Y_Pos - Chef_Size) <= Chef_Y_Min )  // Chef is at the top edge
-					  Chef_Y_Motion <= Chef_Y_Step;
-					  
-				 else if ( (Chef_X_Pos + Chef_Size) >= Chef_X_Max )  // Chef is at the right edge
-					  Chef_X_Motion <= (~ (Chef_X_Step) + 1'b1); 
-					  
-				 else if ( (Chef_X_Pos - Chef_Size) <= Chef_X_Min )  // Chef is at the left edge
-					  Chef_X_Motion <= Chef_X_Step;
-					  
-				 else 
-				 begin
-					  Chef_X_Motion <= 0;
-					  Chef_Y_Motion <= 0;
+				 Chef_X_Motion <= 0;
+				 Chef_Y_Motion <= 0;
 					  
 				 
 				 case (keycode)
@@ -74,7 +62,6 @@ module  chef (
 							    Chef_X_Motion <= 0;
 							    end
 			   endcase
-				end
 				 
 				 Chef_Y_Pos <= (Chef_Y_Pos + Chef_Y_Motion);
 				 Chef_X_Pos <= (Chef_X_Pos + Chef_X_Motion);
