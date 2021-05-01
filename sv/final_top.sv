@@ -192,8 +192,8 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	// state machine will determine these later on
 	assign spritesheet_x = 4'h1;
 	assign spritesheet_y = 4'h0;
-	//assign chef_xcoord = 96;
-	//assign chef_ycoord = 141;
+	// assign chef_xcoord = 0;
+	// assign chef_ycoord = 0;
 	
 	chef chef_module (
 		.Reset(Reset_h),
@@ -206,8 +206,8 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	always_comb
 	begin
 		xcoord = (drawxsig >> 1) - 56;
-		ycoord = drawysig >> 1;
-		if (xcoord < 0 || xcoord >= 208)
+		ycoord = (drawysig - 25) >> 1;
+		if (xcoord < 0 || xcoord >= 208 || ycoord < 0 || ycoord >= 215)
 		begin
 			xcoord = 0;
 			ycoord = 0;

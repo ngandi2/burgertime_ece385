@@ -1,1 +1,4 @@
 *.bak
+final_soc
+.qsys_edit
+*obj
