@@ -77,8 +77,14 @@ module chef (
 			   endcase
 				
 				 
-				 Chef_Y_Pos <= (Chef_Y_Pos + Chef_Y_Motion);
-				 Chef_X_Pos <= (Chef_X_Pos + Chef_X_Motion);
+				if (!climb && !walk)
+				begin
+					 Chef_Y_Motion <= 1;
+					 Chef_X_Motion <= 0;
+				end
+				 
+				Chef_Y_Pos <= (Chef_Y_Pos + Chef_Y_Motion);
+				Chef_X_Pos <= (Chef_X_Pos + Chef_X_Motion);
       
 			
 			end  
