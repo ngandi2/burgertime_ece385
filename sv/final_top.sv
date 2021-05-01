@@ -158,7 +158,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		
 	);
 
-	logic [1:0] stage_color_index;
+	logic [1:0] stage_color_index, ladder_color_index_top, ladder_color_index_bottom;
 	logic [2:0] sprite_color_index;
 	logic [9:0] xcoord, ycoord, chef_xcoord, chef_ycoord;
 	logic [3:0] spritesheet_x, spritesheet_y, spritesheet_xoffset, spritesheet_yoffset;
@@ -196,11 +196,13 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	// assign chef_ycoord = 0;
 	
 	chef chef_module (
-		.Reset(Reset_h),
-		.frame_clk(VGA_VS),
-		.keycode(keycode),
-		.ChefX(chef_xcoord),
-		.ChefY(chef_ycoord)
+		.Reset(Reset_h), 
+		.frame_clk(VGA_VS), 
+		.keycode(keycode), 
+		.ChefX(chef_xcoord), 
+		.ChefY(chef_ycoord), 
+		.walk(|ladder_color_index_bottom), 
+		.climb(&ladder_color_index_top)
 	);
 
 	always_comb
@@ -232,6 +234,19 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.wren(1'b0), 
 		.clock(MAX10_CLK1_50), 
 		.q(stage_color_index)
+	);
+
+	// ['0x000000', '0x00FFFF', '0x0000FF', '0xB6B6AA'] = [background, floor1/burger bin, floor2, ladder]
+	ladder_ram ladders (
+		.address_a(chef_ycoord * 640 + (chef_xcoord + 8)), 
+		.address_b((chef_ycoord + 16) * 640 + (chef_xcoord + 8)), 
+		.clock(MAX10_CLK1_50), 
+		.data_a(), 
+		.data_b(), 
+		.wren_a(1'b0), 
+		.wren_b(1'b0), 
+		.q_a(ladder_color_index_top), 
+		.q_b(ladder_color_index_bottom)
 	);
 	
 	sprite_ram sprites (

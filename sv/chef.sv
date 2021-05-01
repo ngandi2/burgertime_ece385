@@ -1,6 +1,6 @@
 module chef (
-    input Reset, frame_clk,
-    input [7:0] keycode,
+    input Reset, frame_clk, walk, climb, 
+    input [7:0] keycode, 
     output [9:0] ChefX, ChefY
 );
     
@@ -50,23 +50,35 @@ module chef (
 
                 case (keycode)
                     8'h04 : begin
-                        Chef_X_Motion <= -1; // A
-                        Chef_Y_Motion <= 0;
+                        if (walk)
+                        begin
+                            Chef_Y_Motion <= 0; // A
+                            Chef_X_Motion <= -1;
+                        end
                     end
 
                     8'h07 : begin
-                        Chef_X_Motion <= 1; // D
-                        Chef_Y_Motion <= 0;
+                        if (walk)
+                        begin
+                            Chef_Y_Motion <= 0; // D
+                            Chef_X_Motion <= 1;
+                        end
                     end
 
                     8'h16 : begin
-                        Chef_Y_Motion <= 1; // S
-                        Chef_X_Motion <= 0;
+                        if (climb)
+                        begin
+                            Chef_Y_Motion <= 1; // S
+                            Chef_X_Motion <= 0;
+                        end
                     end
 
                     8'h1A : begin
-                        Chef_Y_Motion <= -1; // W
-                        Chef_X_Motion <= 0;
+                        if (climb)
+                        begin
+                            Chef_Y_Motion <= -1; // W
+                            Chef_X_Motion <= 0;
+                        end
                     end
 
                     default : begin
