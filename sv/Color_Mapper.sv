@@ -15,7 +15,7 @@
 
 module  color_mapper (
     input [9:0] DrawX, DrawY, 
-    input logic chef, 
+    input logic chef, burger1_top, 
     input logic blank, 
     input logic [1:0] stage_color_index, 
     input logic [2:0] sprite_color_index, 
@@ -67,7 +67,7 @@ module  color_mapper (
             Blue = 8'h00;
         end
         // ['0x000000', '0xFF0000', '0xFFFFFF', '0x6D6D6D', '0xFFFF00', '0x00FF00', '0xFFB600', '0x6DB600']
-        if (chef)
+        if (chef || burger1_top)
         begin
             // skip the 3'b000 case since black is for transparency
             case (sprite_color_index)

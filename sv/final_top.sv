@@ -160,9 +160,9 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 
 	logic [1:0] stage_color_index, ladder_color_index_top, ladder_color_index_bottom;
 	logic [2:0] sprite_color_index;
-	logic [9:0] xcoord, ycoord, chef_xcoord, chef_ycoord;
-	logic [3:0] spritesheet_x, spritesheet_y, spritesheet_xoffset, spritesheet_yoffset;
-	logic chef;
+	logic [9:0] xcoord, ycoord, chef_xcoord, chef_ycoord, burger1_topX, burger1_topY;
+	logic [9:0] spritesheet_x, spritesheet_y, spritesheet_xoffset, spritesheet_yoffset;
+	logic chef, burger1_top;
 
 //instantiate a vga_controller, ball, and color_mapper here with the ports.
 	vga_controller vga (
@@ -181,6 +181,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.DrawX(drawxsig), 
 		.DrawY(drawysig), 
 		.chef(chef), 
+		.burger1_top(burger1_top),
 		.blank(blank),
 		.stage_color_index(stage_color_index), 
 		.sprite_color_index(sprite_color_index), 
@@ -190,8 +191,8 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	);
 
 	// state machine will determine these later on
-	assign spritesheet_x = 4'h1;
-	assign spritesheet_y = 4'h0;
+	//assign spritesheet_x = 10'd16; // think like 1 * 16
+	//assign spritesheet_y = 10'd0;
 	// assign chef_xcoord = 0;
 	// assign chef_ycoord = 0;
 	
@@ -204,8 +205,22 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.walk(|ladder_color_index_bottom), 
 		.climb(&ladder_color_index_top)
 	);
+	
+	ingredient #(.Burger_X_Start(32), .Burger_Y_Start(92), .Burger_Y_End(360)) burger1TopBun (
+		.Reset(Reset_h), 
+		.frame_clk(VGA_VS), 
+		.ChefX(chef_xcoord), 
+		.ChefY(chef_ycoord), 
+		.aboveIngredientX(10'd0),
+		.aboveIngredientY(10'd0),
+		.walk(|ladder_color_index_bottom), 
+		.climb(&ladder_color_index_top),
+		.BurgerX(burger1_topX),
+		.BurgerY(burger1_topY)
+	);
 
-	always_comb
+	// put this in a separate module
+	/*always_comb
 	begin
 		xcoord = (drawxsig >> 1) - 56;
 		ycoord = (drawysig - 25) >> 1;
@@ -216,17 +231,49 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		end
 		if (xcoord >= chef_xcoord && xcoord < chef_xcoord + 16 && ycoord >= chef_ycoord && ycoord < chef_ycoord + 16)
 		begin
+			spritesheet_x = 10'd16;
+         spritesheet_y = 10'd0;
 			spritesheet_xoffset = xcoord - chef_xcoord;
 			spritesheet_yoffset = ycoord - chef_ycoord;
 			chef = 1'b1;
+			burger1_top = 1'b0;
+		end
+		else if (xcoord >= burger1_topX && xcoord < burger1_topX + 32 && ycoord >= burger1_topY && ycoord < burger1_topY + 8)
+		begin
+			spritesheet_x = 10'd112;
+         spritesheet_y = 10'd49;
+			spritesheet_xoffset = xcoord - burger1_topX;
+			spritesheet_yoffset = ycoord - burger1_topY;
+			chef = 1'b0;
+			burger1_top = 1'b1;
 		end
 		else
 		begin
+			spritesheet_x = 10'd0;
+         spritesheet_y = 10'd0;
 			spritesheet_xoffset = 0;
 			spritesheet_yoffset = 0;
 			chef = 1'b0;
+			burger1_top = 1'b0;
 		end
-	end
+	end*/
+	
+	spritesheet sprite_offsets (
+		.drawxsig(drawxsig), 
+		.drawysig(drawysig), 
+		.chef_xcoord(chef_xcoord), 
+		.chef_ycoord(chef_ycoord), 
+		.burger1_topX(burger1_topX), 
+		.burger1_topY(burger1_topY),
+      .xcoord(xcoord), 
+		.ycoord(ycoord), 
+		.spritesheet_x(spritesheet_x), 
+		.spritesheet_y(spritesheet_y), 
+		.spritesheet_xoffset(spritesheet_xoffset), 
+		.spritesheet_yoffset(spritesheet_yoffset),
+	   .chef(chef), 
+		.burger1_top(burger1_top)
+	);
 	
 	stage_ram stages (
 		.data(), 
@@ -251,7 +298,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	
 	sprite_ram sprites (
 		.data(), 
-		.address((spritesheet_y * 16 + spritesheet_yoffset) * 240 + spritesheet_x * 16 + spritesheet_xoffset), 
+		.address((spritesheet_y + spritesheet_yoffset) * 240 + spritesheet_x + spritesheet_xoffset), 
 		.wren(1'b0), 
 		.clock(MAX10_CLK1_50), 
 		.q(sprite_color_index)

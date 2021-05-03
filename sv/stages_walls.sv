@@ -40,7 +40,7 @@ module  stages_walls (
 						  end
 							  
 				8'h1A : begin // W
-							  if (Chef_Y_Pos >= Chef_Y_Min && Chef_Y_Pos <= Chef_Y_Max)
+							  if (Chef_Y_Pos > Chef_Y_Min && Chef_Y_Pos <= Chef_Y_Max)
 									move_Valid <= 1'b1;
 						  end	  
 							  
