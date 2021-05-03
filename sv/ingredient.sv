@@ -1,5 +1,5 @@
 module ingredient (
-    input Reset, frame_clk, walk, climb, 
+    input Reset, frame_clk, fall, 
     input [9:0] ChefX, ChefY, aboveIngredientX, aboveIngredientY,
 	 output finish,
     output [9:0] BurgerX, BurgerY
@@ -21,24 +21,24 @@ module ingredient (
     begin: Move_Piece
         if (Reset)  // Asynchronous Reset
         begin 
-            Burger_Y_Motion <= 10'd0; 
-				Burger_X_Motion <= 10'd0;
-				Burger_Y_Pos <= Burger_Y_Start;
-				Burger_X_Pos <= Burger_X_Start;
-				reachedTarget <= 1'd0;
+					Burger_Y_Motion <= 10'd0; 
+					Burger_X_Motion <= 10'd0;
+					Burger_Y_Pos <= Burger_Y_Start;
+					Burger_X_Pos <= Burger_X_Start;
+					reachedTarget <= 1'd0;
 		  end
            
         else if (!reachedTarget)
         begin 
 				
-				if (ChefX << 1 == Burger_X_Pos + 8 || aboveIngredientY == Burger_Y_Pos) 
+				if ((ChefX << 1 == Burger_X_Pos + 8 && ChefY < Burger_Y_Pos >> 1 && ChefY + 16 > Burger_Y_Pos >> 1) || aboveIngredientY == Burger_Y_Pos) 
 				begin
-					 Burger_Y_Pos <= Burger_Y_Pos + 10'd2;
+					 Burger_Y_Motion <= 2;
 				end
 				 
 				
 				 
-				if (!walk && !climb)
+				else if (fall)
 				begin
 					 Burger_Y_Motion <= 1;
 				end
@@ -60,6 +60,6 @@ module ingredient (
 
     assign BurgerX = Burger_X_Pos >> 1;
     assign BurgerY = Burger_Y_Pos >> 1;
-	 assign finish = reachedTarget;
+    assign finish = reachedTarget;
 
 endmodule

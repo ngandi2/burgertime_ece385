@@ -4,7 +4,7 @@
 // MODULE: altsyncram 
 
 // ============================================================
-// File Name: ladder_ram.v
+// File Name: stage_bound_ram.v
 // Megafunction Name(s):
 // 			altsyncram
 //
@@ -36,7 +36,7 @@
 // synopsys translate_off
 `timescale 1 ps / 1 ps
 // synopsys translate_on
-module ladder_ram (
+module stage_bound_ram (
 	address_a,
 	address_b,
 	clock,
@@ -102,7 +102,7 @@ module ladder_ram (
 		altsyncram_component.clock_enable_output_a = "BYPASS",
 		altsyncram_component.clock_enable_output_b = "BYPASS",
 		altsyncram_component.indata_reg_b = "CLOCK0",
-		altsyncram_component.init_file = "./burgertime/ladder_ram_data.mif",
+		altsyncram_component.init_file = "./burgertime/stage_floors_ram_data.mif",
 		altsyncram_component.intended_device_family = "MAX 10",
 		altsyncram_component.lpm_type = "altsyncram",
 		altsyncram_component.numwords_a = 275200,
@@ -163,7 +163,7 @@ endmodule
 // Retrieval info: PRIVATE: MAXIMUM_DEPTH NUMERIC "0"
 // Retrieval info: PRIVATE: MEMSIZE NUMERIC "275200"
 // Retrieval info: PRIVATE: MEM_IN_BITS NUMERIC "0"
-// Retrieval info: PRIVATE: MIFfilename STRING "./burgertime/ladder_ram_data.mif"
+// Retrieval info: PRIVATE: MIFfilename STRING "./burgertime/stage_floors_ram_data.mif"
 // Retrieval info: PRIVATE: OPERATION_MODE NUMERIC "3"
 // Retrieval info: PRIVATE: OUTDATA_ACLR_B NUMERIC "0"
 // Retrieval info: PRIVATE: OUTDATA_REG_B NUMERIC "0"
@@ -197,7 +197,7 @@ endmodule
 // Retrieval info: CONSTANT: CLOCK_ENABLE_OUTPUT_A STRING "BYPASS"
 // Retrieval info: CONSTANT: CLOCK_ENABLE_OUTPUT_B STRING "BYPASS"
 // Retrieval info: CONSTANT: INDATA_REG_B STRING "CLOCK0"
-// Retrieval info: CONSTANT: INIT_FILE STRING "./burgertime/ladder_ram_data.mif"
+// Retrieval info: CONSTANT: INIT_FILE STRING "./burgertime/stage_floors_ram_data.mif"
 // Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "MAX 10"
 // Retrieval info: CONSTANT: LPM_TYPE STRING "altsyncram"
 // Retrieval info: CONSTANT: NUMWORDS_A NUMERIC "275200"
@@ -237,10 +237,10 @@ endmodule
 // Retrieval info: CONNECT: @wren_b 0 0 0 0 wren_b 0 0 0 0
 // Retrieval info: CONNECT: q_a 0 0 1 0 @q_a 0 0 1 0
 // Retrieval info: CONNECT: q_b 0 0 1 0 @q_b 0 0 1 0
-// Retrieval info: GEN_FILE: TYPE_NORMAL ladder_ram.v TRUE
-// Retrieval info: GEN_FILE: TYPE_NORMAL ladder_ram.inc FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL ladder_ram.cmp FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL ladder_ram.bsf FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL ladder_ram_inst.v FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL ladder_ram_bb.v TRUE
+// Retrieval info: GEN_FILE: TYPE_NORMAL stage_bound_ram.v TRUE
+// Retrieval info: GEN_FILE: TYPE_NORMAL stage_bound_ram.inc FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL stage_bound_ram.cmp FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL stage_bound_ram.bsf FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL stage_bound_ram_inst.v FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL stage_bound_ram_bb.v TRUE
 // Retrieval info: LIB_FILE: altera_mf

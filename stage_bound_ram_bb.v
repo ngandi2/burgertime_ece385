@@ -1,10 +1,10 @@
-// megafunction wizard: %RAM: 2-PORT%
+// megafunction wizard: %RAM: 2-PORT%VBB%
 // GENERATION: STANDARD
 // VERSION: WM1.0
 // MODULE: altsyncram 
 
 // ============================================================
-// File Name: ladder_ram.v
+// File Name: stage_bound_ram.v
 // Megafunction Name(s):
 // 			altsyncram
 //
@@ -16,7 +16,6 @@
 //
 // 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 // ************************************************************
-
 
 //Copyright (C) 2018  Intel Corporation. All rights reserved.
 //Your use of Intel Corporation's design tools, logic functions 
@@ -32,11 +31,7 @@
 //Intel and sold by Intel or its authorized distributors.  Please
 //refer to the applicable agreement for further details.
 
-
-// synopsys translate_off
-`timescale 1 ps / 1 ps
-// synopsys translate_on
-module ladder_ram (
+module stage_bound_ram (
 	address_a,
 	address_b,
 	clock,
@@ -65,66 +60,6 @@ module ladder_ram (
 `ifndef ALTERA_RESERVED_QIS
 // synopsys translate_on
 `endif
-
-	wire [0:0] sub_wire0;
-	wire [0:0] sub_wire1;
-	wire [0:0] q_a = sub_wire0[0:0];
-	wire [0:0] q_b = sub_wire1[0:0];
-
-	altsyncram	altsyncram_component (
-				.address_a (address_a),
-				.address_b (address_b),
-				.clock0 (clock),
-				.data_a (data_a),
-				.data_b (data_b),
-				.wren_a (wren_a),
-				.wren_b (wren_b),
-				.q_a (sub_wire0),
-				.q_b (sub_wire1),
-				.aclr0 (1'b0),
-				.aclr1 (1'b0),
-				.addressstall_a (1'b0),
-				.addressstall_b (1'b0),
-				.byteena_a (1'b1),
-				.byteena_b (1'b1),
-				.clock1 (1'b1),
-				.clocken0 (1'b1),
-				.clocken1 (1'b1),
-				.clocken2 (1'b1),
-				.clocken3 (1'b1),
-				.eccstatus (),
-				.rden_a (1'b1),
-				.rden_b (1'b1));
-	defparam
-		altsyncram_component.address_reg_b = "CLOCK0",
-		altsyncram_component.clock_enable_input_a = "BYPASS",
-		altsyncram_component.clock_enable_input_b = "BYPASS",
-		altsyncram_component.clock_enable_output_a = "BYPASS",
-		altsyncram_component.clock_enable_output_b = "BYPASS",
-		altsyncram_component.indata_reg_b = "CLOCK0",
-		altsyncram_component.init_file = "./burgertime/ladder_ram_data.mif",
-		altsyncram_component.intended_device_family = "MAX 10",
-		altsyncram_component.lpm_type = "altsyncram",
-		altsyncram_component.numwords_a = 275200,
-		altsyncram_component.numwords_b = 275200,
-		altsyncram_component.operation_mode = "BIDIR_DUAL_PORT",
-		altsyncram_component.outdata_aclr_a = "NONE",
-		altsyncram_component.outdata_aclr_b = "NONE",
-		altsyncram_component.outdata_reg_a = "UNREGISTERED",
-		altsyncram_component.outdata_reg_b = "UNREGISTERED",
-		altsyncram_component.power_up_uninitialized = "FALSE",
-		altsyncram_component.ram_block_type = "M9K",
-		altsyncram_component.read_during_write_mode_mixed_ports = "DONT_CARE",
-		altsyncram_component.read_during_write_mode_port_a = "NEW_DATA_WITH_NBE_READ",
-		altsyncram_component.read_during_write_mode_port_b = "NEW_DATA_WITH_NBE_READ",
-		altsyncram_component.widthad_a = 19,
-		altsyncram_component.widthad_b = 19,
-		altsyncram_component.width_a = 1,
-		altsyncram_component.width_b = 1,
-		altsyncram_component.width_byteena_a = 1,
-		altsyncram_component.width_byteena_b = 1,
-		altsyncram_component.wrcontrol_wraddress_reg_b = "CLOCK0";
-
 
 endmodule
 
@@ -163,7 +98,7 @@ endmodule
 // Retrieval info: PRIVATE: MAXIMUM_DEPTH NUMERIC "0"
 // Retrieval info: PRIVATE: MEMSIZE NUMERIC "275200"
 // Retrieval info: PRIVATE: MEM_IN_BITS NUMERIC "0"
-// Retrieval info: PRIVATE: MIFfilename STRING "./burgertime/ladder_ram_data.mif"
+// Retrieval info: PRIVATE: MIFfilename STRING "./burgertime/stage_floors_ram_data.mif"
 // Retrieval info: PRIVATE: OPERATION_MODE NUMERIC "3"
 // Retrieval info: PRIVATE: OUTDATA_ACLR_B NUMERIC "0"
 // Retrieval info: PRIVATE: OUTDATA_REG_B NUMERIC "0"
@@ -197,7 +132,7 @@ endmodule
 // Retrieval info: CONSTANT: CLOCK_ENABLE_OUTPUT_A STRING "BYPASS"
 // Retrieval info: CONSTANT: CLOCK_ENABLE_OUTPUT_B STRING "BYPASS"
 // Retrieval info: CONSTANT: INDATA_REG_B STRING "CLOCK0"
-// Retrieval info: CONSTANT: INIT_FILE STRING "./burgertime/ladder_ram_data.mif"
+// Retrieval info: CONSTANT: INIT_FILE STRING "./burgertime/stage_floors_ram_data.mif"
 // Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "MAX 10"
 // Retrieval info: CONSTANT: LPM_TYPE STRING "altsyncram"
 // Retrieval info: CONSTANT: NUMWORDS_A NUMERIC "275200"
@@ -237,10 +172,10 @@ endmodule
 // Retrieval info: CONNECT: @wren_b 0 0 0 0 wren_b 0 0 0 0
 // Retrieval info: CONNECT: q_a 0 0 1 0 @q_a 0 0 1 0
 // Retrieval info: CONNECT: q_b 0 0 1 0 @q_b 0 0 1 0
-// Retrieval info: GEN_FILE: TYPE_NORMAL ladder_ram.v TRUE
-// Retrieval info: GEN_FILE: TYPE_NORMAL ladder_ram.inc FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL ladder_ram.cmp FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL ladder_ram.bsf FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL ladder_ram_inst.v FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL ladder_ram_bb.v TRUE
+// Retrieval info: GEN_FILE: TYPE_NORMAL stage_bound_ram.v TRUE
+// Retrieval info: GEN_FILE: TYPE_NORMAL stage_bound_ram.inc FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL stage_bound_ram.cmp FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL stage_bound_ram.bsf FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL stage_bound_ram_inst.v FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL stage_bound_ram_bb.v TRUE
 // Retrieval info: LIB_FILE: altera_mf

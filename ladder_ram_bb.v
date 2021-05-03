@@ -45,12 +45,12 @@ module ladder_ram (
 	input	[18:0]  address_a;
 	input	[18:0]  address_b;
 	input	  clock;
-	input	[1:0]  data_a;
-	input	[1:0]  data_b;
+	input	[0:0]  data_a;
+	input	[0:0]  data_b;
 	input	  wren_a;
 	input	  wren_b;
-	output	[1:0]  q_a;
-	output	[1:0]  q_b;
+	output	[0:0]  q_a;
+	output	[0:0]  q_b;
 `ifndef ALTERA_RESERVED_QIS
 // synopsys translate_off
 `endif
@@ -96,9 +96,9 @@ endmodule
 // Retrieval info: PRIVATE: JTAG_ENABLED NUMERIC "0"
 // Retrieval info: PRIVATE: JTAG_ID STRING "NONE"
 // Retrieval info: PRIVATE: MAXIMUM_DEPTH NUMERIC "0"
-// Retrieval info: PRIVATE: MEMSIZE NUMERIC "550400"
+// Retrieval info: PRIVATE: MEMSIZE NUMERIC "275200"
 // Retrieval info: PRIVATE: MEM_IN_BITS NUMERIC "0"
-// Retrieval info: PRIVATE: MIFfilename STRING "../burgertime/ladder_ram_data.mif"
+// Retrieval info: PRIVATE: MIFfilename STRING "./burgertime/ladder_ram_data.mif"
 // Retrieval info: PRIVATE: OPERATION_MODE NUMERIC "3"
 // Retrieval info: PRIVATE: OUTDATA_ACLR_B NUMERIC "0"
 // Retrieval info: PRIVATE: OUTDATA_REG_B NUMERIC "0"
@@ -116,10 +116,10 @@ endmodule
 // Retrieval info: PRIVATE: USE_DIFF_CLKEN NUMERIC "0"
 // Retrieval info: PRIVATE: UseDPRAM NUMERIC "1"
 // Retrieval info: PRIVATE: VarWidth NUMERIC "0"
-// Retrieval info: PRIVATE: WIDTH_READ_A NUMERIC "2"
-// Retrieval info: PRIVATE: WIDTH_READ_B NUMERIC "2"
-// Retrieval info: PRIVATE: WIDTH_WRITE_A NUMERIC "2"
-// Retrieval info: PRIVATE: WIDTH_WRITE_B NUMERIC "2"
+// Retrieval info: PRIVATE: WIDTH_READ_A NUMERIC "1"
+// Retrieval info: PRIVATE: WIDTH_READ_B NUMERIC "1"
+// Retrieval info: PRIVATE: WIDTH_WRITE_A NUMERIC "1"
+// Retrieval info: PRIVATE: WIDTH_WRITE_B NUMERIC "1"
 // Retrieval info: PRIVATE: WRADDR_ACLR_B NUMERIC "0"
 // Retrieval info: PRIVATE: WRADDR_REG_B NUMERIC "1"
 // Retrieval info: PRIVATE: WRCTRL_ACLR_B NUMERIC "0"
@@ -132,7 +132,7 @@ endmodule
 // Retrieval info: CONSTANT: CLOCK_ENABLE_OUTPUT_A STRING "BYPASS"
 // Retrieval info: CONSTANT: CLOCK_ENABLE_OUTPUT_B STRING "BYPASS"
 // Retrieval info: CONSTANT: INDATA_REG_B STRING "CLOCK0"
-// Retrieval info: CONSTANT: INIT_FILE STRING "../burgertime/ladder_ram_data.mif"
+// Retrieval info: CONSTANT: INIT_FILE STRING "./burgertime/ladder_ram_data.mif"
 // Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "MAX 10"
 // Retrieval info: CONSTANT: LPM_TYPE STRING "altsyncram"
 // Retrieval info: CONSTANT: NUMWORDS_A NUMERIC "275200"
@@ -149,29 +149,29 @@ endmodule
 // Retrieval info: CONSTANT: READ_DURING_WRITE_MODE_PORT_B STRING "NEW_DATA_WITH_NBE_READ"
 // Retrieval info: CONSTANT: WIDTHAD_A NUMERIC "19"
 // Retrieval info: CONSTANT: WIDTHAD_B NUMERIC "19"
-// Retrieval info: CONSTANT: WIDTH_A NUMERIC "2"
-// Retrieval info: CONSTANT: WIDTH_B NUMERIC "2"
+// Retrieval info: CONSTANT: WIDTH_A NUMERIC "1"
+// Retrieval info: CONSTANT: WIDTH_B NUMERIC "1"
 // Retrieval info: CONSTANT: WIDTH_BYTEENA_A NUMERIC "1"
 // Retrieval info: CONSTANT: WIDTH_BYTEENA_B NUMERIC "1"
 // Retrieval info: CONSTANT: WRCONTROL_WRADDRESS_REG_B STRING "CLOCK0"
 // Retrieval info: USED_PORT: address_a 0 0 19 0 INPUT NODEFVAL "address_a[18..0]"
 // Retrieval info: USED_PORT: address_b 0 0 19 0 INPUT NODEFVAL "address_b[18..0]"
 // Retrieval info: USED_PORT: clock 0 0 0 0 INPUT VCC "clock"
-// Retrieval info: USED_PORT: data_a 0 0 2 0 INPUT NODEFVAL "data_a[1..0]"
-// Retrieval info: USED_PORT: data_b 0 0 2 0 INPUT NODEFVAL "data_b[1..0]"
-// Retrieval info: USED_PORT: q_a 0 0 2 0 OUTPUT NODEFVAL "q_a[1..0]"
-// Retrieval info: USED_PORT: q_b 0 0 2 0 OUTPUT NODEFVAL "q_b[1..0]"
+// Retrieval info: USED_PORT: data_a 0 0 1 0 INPUT NODEFVAL "data_a[0..0]"
+// Retrieval info: USED_PORT: data_b 0 0 1 0 INPUT NODEFVAL "data_b[0..0]"
+// Retrieval info: USED_PORT: q_a 0 0 1 0 OUTPUT NODEFVAL "q_a[0..0]"
+// Retrieval info: USED_PORT: q_b 0 0 1 0 OUTPUT NODEFVAL "q_b[0..0]"
 // Retrieval info: USED_PORT: wren_a 0 0 0 0 INPUT GND "wren_a"
 // Retrieval info: USED_PORT: wren_b 0 0 0 0 INPUT GND "wren_b"
 // Retrieval info: CONNECT: @address_a 0 0 19 0 address_a 0 0 19 0
 // Retrieval info: CONNECT: @address_b 0 0 19 0 address_b 0 0 19 0
 // Retrieval info: CONNECT: @clock0 0 0 0 0 clock 0 0 0 0
-// Retrieval info: CONNECT: @data_a 0 0 2 0 data_a 0 0 2 0
-// Retrieval info: CONNECT: @data_b 0 0 2 0 data_b 0 0 2 0
+// Retrieval info: CONNECT: @data_a 0 0 1 0 data_a 0 0 1 0
+// Retrieval info: CONNECT: @data_b 0 0 1 0 data_b 0 0 1 0
 // Retrieval info: CONNECT: @wren_a 0 0 0 0 wren_a 0 0 0 0
 // Retrieval info: CONNECT: @wren_b 0 0 0 0 wren_b 0 0 0 0
-// Retrieval info: CONNECT: q_a 0 0 2 0 @q_a 0 0 2 0
-// Retrieval info: CONNECT: q_b 0 0 2 0 @q_b 0 0 2 0
+// Retrieval info: CONNECT: q_a 0 0 1 0 @q_a 0 0 1 0
+// Retrieval info: CONNECT: q_b 0 0 1 0 @q_b 0 0 1 0
 // Retrieval info: GEN_FILE: TYPE_NORMAL ladder_ram.v TRUE
 // Retrieval info: GEN_FILE: TYPE_NORMAL ladder_ram.inc FALSE
 // Retrieval info: GEN_FILE: TYPE_NORMAL ladder_ram.cmp FALSE

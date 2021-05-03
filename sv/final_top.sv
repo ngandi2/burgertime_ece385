@@ -158,9 +158,10 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		
 	);
 
-	logic [1:0] stage_color_index, ladder_color_index_top, ladder_color_index_bottom;
+	logic ingredient1_bottom_color, ingredient2_bottom_color, ladder_color_index_top, ladder_color_index_bottom;
+	logic [1:0] stage_color_index;
 	logic [2:0] sprite_color_index;
-	logic [9:0] xcoord, ycoord, chef_xcoord, chef_ycoord, burger1_topX, burger1_topY;
+	logic [9:0] xcoord, ycoord, chef_xcoord, chef_ycoord, burger1_topX, burger1_topY, ingredient1_ycoord, ingredient1_xcoord, ingredient2_ycoord, ingredient2_xcoord;
 	logic [9:0] spritesheet_x, spritesheet_y, spritesheet_xoffset, spritesheet_yoffset;
 	logic chef, burger1_top;
 
@@ -211,11 +212,10 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
 		.ChefY(chef_ycoord), 
-		.aboveIngredientX(10'd0),
-		.aboveIngredientY(10'd0),
-		.walk(|ladder_color_index_bottom), 
-		.climb(&ladder_color_index_top),
-		.BurgerX(burger1_topX),
+		.aboveIngredientX(10'd0), 
+		.aboveIngredientY(10'd0), 
+		.fall(~ingredient1_bottom_color), 
+		.BurgerX(burger1_topX), 
 		.BurgerY(burger1_topY)
 	);
 
@@ -257,6 +257,15 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 			burger1_top = 1'b0;
 		end
 	end*/
+
+	// the ingredient coordinates should be defined by a mux or something later
+	always_comb
+	begin
+		ingredient1_ycoord = burger1_topY;
+		ingredient1_xcoord = burger1_topX;
+		ingredient2_ycoord = '0;
+		ingredient2_xcoord = '0;
+	end
 	
 	spritesheet sprite_offsets (
 		.drawxsig(drawxsig), 
@@ -265,13 +274,13 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.chef_ycoord(chef_ycoord), 
 		.burger1_topX(burger1_topX), 
 		.burger1_topY(burger1_topY),
-      .xcoord(xcoord), 
+		.xcoord(xcoord), 
 		.ycoord(ycoord), 
 		.spritesheet_x(spritesheet_x), 
 		.spritesheet_y(spritesheet_y), 
 		.spritesheet_xoffset(spritesheet_xoffset), 
 		.spritesheet_yoffset(spritesheet_yoffset),
-	   .chef(chef), 
+		.chef(chef), 
 		.burger1_top(burger1_top)
 	);
 	
@@ -283,7 +292,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.q(stage_color_index)
 	);
 
-	// ['0x000000', '0x00FFFF', '0x0000FF', '0xB6B6AA'] = [background, floor1/burger bin, floor2, ladder]
+	// ['0x000000', '0x0000FF'] = [background, floor/ladders]
 	ladder_ram ladders (
 		.address_a(chef_ycoord * 640 + (chef_xcoord + 8)), 
 		.address_b((chef_ycoord + 16) * 640 + (chef_xcoord + 8)), 
@@ -294,6 +303,19 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.wren_b(1'b0), 
 		.q_a(ladder_color_index_top), 
 		.q_b(ladder_color_index_bottom)
+	);
+
+	// ['0x000000', '0x0000FF'] = [background/ladders, floor]
+	stage_bound_ram ingredient_bound (
+		.address_a((ingredient1_ycoord + 6) * 640 + (ingredient1_xcoord + 16)), 
+		.address_b((ingredient2_ycoord + 6) * 640 + (ingredient2_xcoord + 16)), 
+		.clock(MAX10_CLK1_50), 
+		.data_a(), 
+		.data_b(), 
+		.wren_a(1'b0), 
+		.wren_b(1'b0), 
+		.q_a(ingredient1_bottom_color), 
+		.q_b(ingredient2_bottom_color)
 	);
 	
 	sprite_ram sprites (
