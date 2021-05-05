@@ -1,11 +1,11 @@
 module ingredient (
     input Reset, frame_clk, fall, 
     input [9:0] ChefX, ChefY, aboveIngredientX, aboveIngredientY,
-	 output finish,
+	 output finish, falling,
     output [9:0] BurgerX, BurgerY
 );
 	
-	 logic reachedTarget;
+    logic reachedTarget, descending;
     logic [9:0] Burger_X_Pos, Burger_X_Motion, Burger_Y_Pos, Burger_Y_Motion;
   
     parameter [9:0] Burger_X_Start = 0;    // Start position on the X axis
@@ -31,9 +31,10 @@ module ingredient (
         else if (!reachedTarget)
         begin 
 				
-				if ((ChefX << 1 == Burger_X_Pos + 8 && ChefY < Burger_Y_Pos >> 1 && ChefY + 16 > Burger_Y_Pos >> 1) || aboveIngredientY == Burger_Y_Pos) 
+				if ((ChefX << 1 == Burger_X_Pos + 8 && ChefY < Burger_Y_Pos >> 1 && ChefY + 16 > Burger_Y_Pos >> 1) || ((aboveIngredientY << 1) > (Burger_Y_Pos << 1) && ((aboveIngredientY << 1) < (Burger_Y_Pos << 1) + 7))) 
 				begin
 					 Burger_Y_Motion <= 2;
+					 descending <= 1'b1;
 				end
 				 
 				
@@ -41,14 +42,19 @@ module ingredient (
 				else if (fall)
 				begin
 					 Burger_Y_Motion <= 1;
+					 descending <= 1'b1;
 				end
 				
 				else
-					 Burger_Y_Motion <= 0;
+					begin
+						Burger_Y_Motion <= 0;
+						descending <= 1'b0;
+					end
 				
 				if (Burger_Y_Pos == Burger_Y_End)
 				begin
 					 Burger_Y_Motion <= 0;
+					 descending <= 1'b0;
 					 reachedTarget <= 1'd1;
 				end
 				 
@@ -61,5 +67,6 @@ module ingredient (
     assign BurgerX = Burger_X_Pos >> 1;
     assign BurgerY = Burger_Y_Pos >> 1;
     assign finish = reachedTarget;
+		assign falling = descending;
 
 endmodule
