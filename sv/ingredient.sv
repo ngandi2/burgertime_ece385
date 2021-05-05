@@ -25,15 +25,22 @@ module ingredient (
 					Burger_X_Motion <= 10'd0;
 					Burger_Y_Pos <= Burger_Y_Start;
 					Burger_X_Pos <= Burger_X_Start;
-					reachedTarget <= 1'd0;
+					reachedTarget <= 1'b0;
+					descending <= 1'b0;
 		  end
            
         else if (!reachedTarget)
         begin 
 				
-				if ((ChefX << 1 == Burger_X_Pos + 8 && ChefY < Burger_Y_Pos >> 1 && ChefY + 16 > Burger_Y_Pos >> 1) || ((aboveIngredientY << 1) > (Burger_Y_Pos << 1) && ((aboveIngredientY << 1) < (Burger_Y_Pos << 1) + 7))) 
+				if ((ChefX << 1 == Burger_X_Pos + 8 && ChefY < Burger_Y_Pos >> 1 && ChefY + 16 > Burger_Y_Pos >> 1)) 
 				begin
-					 Burger_Y_Motion <= 2;
+					 Burger_Y_Motion <= 4;
+					 descending <= 1'b1;
+				end
+				
+				else if (((aboveIngredientY << 1) >= (Burger_Y_Pos)) && ((aboveIngredientY << 1) <= (Burger_Y_Pos) + 8))
+				begin
+					 Burger_Y_Motion <= 4;
 					 descending <= 1'b1;
 				end
 				 
@@ -46,16 +53,16 @@ module ingredient (
 				end
 				
 				else
-					begin
-						Burger_Y_Motion <= 0;
-						descending <= 1'b0;
-					end
+				begin
+					 Burger_Y_Motion <= 0;
+					 descending <= 1'b0;
+				end
 				
 				if (Burger_Y_Pos == Burger_Y_End)
 				begin
 					 Burger_Y_Motion <= 0;
 					 descending <= 1'b0;
-					 reachedTarget <= 1'd1;
+					 reachedTarget <= 1'b1;
 				end
 				 
 				Burger_Y_Pos <= (Burger_Y_Pos + Burger_Y_Motion);
@@ -67,6 +74,6 @@ module ingredient (
     assign BurgerX = Burger_X_Pos >> 1;
     assign BurgerY = Burger_Y_Pos >> 1;
     assign finish = reachedTarget;
-		assign falling = descending;
+	 assign falling = descending;
 
 endmodule

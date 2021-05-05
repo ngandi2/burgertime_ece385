@@ -163,8 +163,11 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	logic [2:0] sprite_color_index;
 	logic [9:0] xcoord, ycoord, chef_xcoord, chef_ycoord, ingredient1_ycoord, ingredient1_xcoord, ingredient2_ycoord, ingredient2_xcoord;
 	logic [9:0] burger1_topX, burger1_topY, burger1_LtopX, burger1_LtopY, burger1_PtopX, burger1_PtopY, burger1_BBtopX, burger1_BBtopY;
+	logic [9:0] burger2_topX, burger2_topY, burger2_LtopX, burger2_LtopY, burger2_PtopX, burger2_PtopY, burger2_BBtopX, burger2_BBtopY;
+	logic [9:0] burger3_topX, burger3_topY, burger3_LtopX, burger3_LtopY, burger3_PtopX, burger3_PtopY, burger3_BBtopX, burger3_BBtopY;
+	logic [9:0] burger4_topX, burger4_topY, burger4_LtopX, burger4_LtopY, burger4_PtopX, burger4_PtopY, burger4_BBtopX, burger4_BBtopY;
 	logic [9:0] spritesheet_x, spritesheet_y, spritesheet_xoffset, spritesheet_yoffset;
-	logic chef, burger1_top;
+	logic chef;
 	logic [16:0] ingredient_fall, ingredient_falling;
 
 //instantiate a vga_controller, ball, and color_mapper here with the ports.
@@ -184,7 +187,6 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.DrawX(drawxsig), 
 		.DrawY(drawysig), 
 		.chef(chef), 
-		.burger1_top(burger1_top),
 		.blank(blank),
 		.stage_color_index(stage_color_index), 
 		.sprite_color_index(sprite_color_index), 
@@ -209,133 +211,226 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.climb(&ladder_color_index_top)
 	);
 	
-	ingredient #(.Burger_X_Start(32), .Burger_Y_Start(92), .Burger_Y_End(358)) burger1TopBun (
+	ingredient #(.Burger_X_Start(32), .Burger_Y_Start(92), .Burger_Y_End(350)) burger1TopBun (
 		.Reset(Reset_h), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
 		.ChefY(chef_ycoord), 
 		.aboveIngredientX(10'd0), 
 		.aboveIngredientY(10'd0), 
-		.fall(~ingredient1_bottom_color & ingredient_falling[15]), 
+		.fall((~ingredient1_bottom_color | ~ingredient2_bottom_color) & ingredient_falling[15]), 
 		.BurgerX(burger1_topX), 
 		.BurgerY(burger1_topY), 
 		.falling(ingredient_fall[15])
 	);
 
-	ingredient #(.Burger_X_Start(32), .Burger_Y_Start(156), .Burger_Y_End(374)) burger1Lettuce (
+	ingredient #(.Burger_X_Start(32), .Burger_Y_Start(156), .Burger_Y_End(366)) burger1Lettuce (
 		.Reset(Reset_h), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
 		.ChefY(chef_ycoord), 
 		.aboveIngredientX(burger1_topX), 
 		.aboveIngredientY(burger1_topY), 
-		.fall(~ingredient1_bottom_color & ingredient_falling[14]), 
+		.fall((~ingredient1_bottom_color | ~ingredient2_bottom_color) & ingredient_falling[14]), 
 		.BurgerX(burger1_LtopX), 
 		.BurgerY(burger1_LtopY), 
 		.falling(ingredient_fall[14])
 	);
 
-	ingredient #(.Burger_X_Start(32), .Burger_Y_Start(252), .Burger_Y_End(390)) burger1Patty (
+	ingredient #(.Burger_X_Start(32), .Burger_Y_Start(252), .Burger_Y_End(382)) burger1Patty (
 		.Reset(Reset_h), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
 		.ChefY(chef_ycoord), 
 		.aboveIngredientX(burger1_LtopX), 
 		.aboveIngredientY(burger1_LtopY), 
-		.fall(~ingredient1_bottom_color & ingredient_falling[13]), 
+		.fall((~ingredient1_bottom_color | ~ingredient2_bottom_color) & ingredient_falling[13]), 
 		.BurgerX(burger1_PtopX), 
 		.BurgerY(burger1_PtopY), 
 		.falling(ingredient_fall[13])
 	);
 
-	ingredient #(.Burger_X_Start(32), .Burger_Y_Start(316), .Burger_Y_End(406)) burger1BotBun (
+	ingredient #(.Burger_X_Start(32), .Burger_Y_Start(316), .Burger_Y_End(398)) burger1BotBun (
 		.Reset(Reset_h), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
 		.ChefY(chef_ycoord), 
 		.aboveIngredientX(burger1_PtopX), 
 		.aboveIngredientY(burger1_PtopY), 
-		.fall(~ingredient1_bottom_color & ingredient_falling[12]), 
+		.fall((~ingredient1_bottom_color | ~ingredient2_bottom_color) & ingredient_falling[12]), 
 		.BurgerX(burger1_BBtopX), 
 		.BurgerY(burger1_BBtopY), 
 		.falling(ingredient_fall[12])
 	);
 
-	// put this in a separate module
-	/*always_comb
-	begin
-		xcoord = (drawxsig >> 1) - 56;
-		ycoord = (drawysig - 25) >> 1;
-		if (xcoord < 0 || xcoord >= 208 || ycoord < 0 || ycoord >= 215)
-		begin
-			xcoord = 0;
-			ycoord = 0;
-		end
-		if (xcoord >= chef_xcoord && xcoord < chef_xcoord + 16 && ycoord >= chef_ycoord && ycoord < chef_ycoord + 16)
-		begin
-			spritesheet_x = 10'd16;
-         spritesheet_y = 10'd0;
-			spritesheet_xoffset = xcoord - chef_xcoord;
-			spritesheet_yoffset = ycoord - chef_ycoord;
-			chef = 1'b1;
-			burger1_top = 1'b0;
-		end
-		else if (xcoord >= burger1_topX && xcoord < burger1_topX + 32 && ycoord >= burger1_topY && ycoord < burger1_topY + 8)
-		begin
-			spritesheet_x = 10'd112;
-         spritesheet_y = 10'd49;
-			spritesheet_xoffset = xcoord - burger1_topX;
-			spritesheet_yoffset = ycoord - burger1_topY;
-			chef = 1'b0;
-			burger1_top = 1'b1;
-		end
-		else
-		begin
-			spritesheet_x = 10'd0;
-         spritesheet_y = 10'd0;
-			spritesheet_xoffset = 0;
-			spritesheet_yoffset = 0;
-			chef = 1'b0;
-			burger1_top = 1'b0;
-		end
-	end*/
+	ingredient #(.Burger_X_Start(128), .Burger_Y_Start(28), .Burger_Y_End(350)) burger2TopBun (
+		.Reset(Reset_h), 
+		.frame_clk(VGA_VS), 
+		.ChefX(chef_xcoord), 
+		.ChefY(chef_ycoord), 
+		.aboveIngredientX(10'd0), 
+		.aboveIngredientY(10'd0), 
+		.fall((~ingredient1_bottom_color | ~ingredient2_bottom_color) & ingredient_falling[11]), 
+		.BurgerX(burger2_topX), 
+		.BurgerY(burger2_topY), 
+		.falling(ingredient_fall[11])
+	);
+
+	ingredient #(.Burger_X_Start(128), .Burger_Y_Start(188), .Burger_Y_End(366)) burger2Lettuce (
+		.Reset(Reset_h), 
+		.frame_clk(VGA_VS), 
+		.ChefX(chef_xcoord), 
+		.ChefY(chef_ycoord), 
+		.aboveIngredientX(burger2_topX), 
+		.aboveIngredientY(burger2_topY), 
+		.fall((~ingredient1_bottom_color | ~ingredient2_bottom_color) & ingredient_falling[10]), 
+		.BurgerX(burger2_LtopX), 
+		.BurgerY(burger2_LtopY), 
+		.falling(ingredient_fall[10])
+	);
+
+	ingredient #(.Burger_X_Start(128), .Burger_Y_Start(252), .Burger_Y_End(382)) burger2Patty (
+		.Reset(Reset_h), 
+		.frame_clk(VGA_VS), 
+		.ChefX(chef_xcoord), 
+		.ChefY(chef_ycoord), 
+		.aboveIngredientX(burger2_LtopX), 
+		.aboveIngredientY(burger2_LtopY), 
+		.fall((~ingredient1_bottom_color | ~ingredient2_bottom_color) & ingredient_falling[9]), 
+		.BurgerX(burger2_PtopX), 
+		.BurgerY(burger2_PtopY), 
+		.falling(ingredient_fall[9])
+	);
+
+	ingredient #(.Burger_X_Start(128), .Burger_Y_Start(316), .Burger_Y_End(398)) burger2BotBun (
+		.Reset(Reset_h), 
+		.frame_clk(VGA_VS), 
+		.ChefX(chef_xcoord), 
+		.ChefY(chef_ycoord), 
+		.aboveIngredientX(burger2_PtopX), 
+		.aboveIngredientY(burger2_PtopY), 
+		.fall((~ingredient1_bottom_color | ~ingredient2_bottom_color) & ingredient_falling[8]), 
+		.BurgerX(burger2_BBtopX), 
+		.BurgerY(burger2_BBtopY), 
+		.falling(ingredient_fall[8])
+	);
+
+	ingredient #(.Burger_X_Start(224), .Burger_Y_Start(28), .Burger_Y_End(350)) burger3TopBun (
+		.Reset(Reset_h), 
+		.frame_clk(VGA_VS), 
+		.ChefX(chef_xcoord), 
+		.ChefY(chef_ycoord), 
+		.aboveIngredientX(10'd0), 
+		.aboveIngredientY(10'd0), 
+		.fall((~ingredient1_bottom_color | ~ingredient2_bottom_color) & ingredient_falling[7]), 
+		.BurgerX(burger3_topX), 
+		.BurgerY(burger3_topY), 
+		.falling(ingredient_fall[7])
+	);
+
+	ingredient #(.Burger_X_Start(224), .Burger_Y_Start(92), .Burger_Y_End(366)) burger3Lettuce (
+		.Reset(Reset_h), 
+		.frame_clk(VGA_VS), 
+		.ChefX(chef_xcoord), 
+		.ChefY(chef_ycoord), 
+		.aboveIngredientX(burger3_topX), 
+		.aboveIngredientY(burger3_topY), 
+		.fall((~ingredient1_bottom_color | ~ingredient2_bottom_color) & ingredient_falling[6]), 
+		.BurgerX(burger3_LtopX), 
+		.BurgerY(burger3_LtopY), 
+		.falling(ingredient_fall[6])
+	);
+
+	ingredient #(.Burger_X_Start(224), .Burger_Y_Start(188), .Burger_Y_End(382)) burger3Patty (
+		.Reset(Reset_h), 
+		.frame_clk(VGA_VS), 
+		.ChefX(chef_xcoord), 
+		.ChefY(chef_ycoord), 
+		.aboveIngredientX(burger3_LtopX), 
+		.aboveIngredientY(burger3_LtopY), 
+		.fall((~ingredient1_bottom_color | ~ingredient2_bottom_color) & ingredient_falling[5]), 
+		.BurgerX(burger3_PtopX), 
+		.BurgerY(burger3_PtopY), 
+		.falling(ingredient_fall[5])
+	);
+
+	ingredient #(.Burger_X_Start(224), .Burger_Y_Start(316), .Burger_Y_End(398)) burger3BotBun (
+		.Reset(Reset_h), 
+		.frame_clk(VGA_VS), 
+		.ChefX(chef_xcoord), 
+		.ChefY(chef_ycoord), 
+		.aboveIngredientX(burger3_PtopX), 
+		.aboveIngredientY(burger3_PtopY), 
+		.fall((~ingredient1_bottom_color | ~ingredient2_bottom_color) & ingredient_falling[4]), 
+		.BurgerX(burger3_BBtopX), 
+		.BurgerY(burger3_BBtopY), 
+		.falling(ingredient_fall[4])
+	);
+
+	ingredient #(.Burger_X_Start(320), .Burger_Y_Start(28), .Burger_Y_End(350)) burger4TopBun (
+		.Reset(Reset_h), 
+		.frame_clk(VGA_VS), 
+		.ChefX(chef_xcoord), 
+		.ChefY(chef_ycoord), 
+		.aboveIngredientX(10'd0), 
+		.aboveIngredientY(10'd0), 
+		.fall((~ingredient1_bottom_color | ~ingredient2_bottom_color) & ingredient_falling[3]), 
+		.BurgerX(burger4_topX), 
+		.BurgerY(burger4_topY), 
+		.falling(ingredient_fall[3])
+	);
+
+	ingredient #(.Burger_X_Start(320), .Burger_Y_Start(92), .Burger_Y_End(366)) burger4Lettuce (
+		.Reset(Reset_h), 
+		.frame_clk(VGA_VS), 
+		.ChefX(chef_xcoord), 
+		.ChefY(chef_ycoord), 
+		.aboveIngredientX(burger4_topX), 
+		.aboveIngredientY(burger4_topY), 
+		.fall((~ingredient1_bottom_color | ~ingredient2_bottom_color) & ingredient_falling[2]), 
+		.BurgerX(burger4_LtopX), 
+		.BurgerY(burger4_LtopY), 
+		.falling(ingredient_fall[2])
+	);
+
+	ingredient #(.Burger_X_Start(320), .Burger_Y_Start(156), .Burger_Y_End(382)) burger4Patty (
+		.Reset(Reset_h), 
+		.frame_clk(VGA_VS), 
+		.ChefX(chef_xcoord), 
+		.ChefY(chef_ycoord), 
+		.aboveIngredientX(burger4_LtopX), 
+		.aboveIngredientY(burger4_LtopY), 
+		.fall((~ingredient1_bottom_color | ~ingredient2_bottom_color) & ingredient_falling[1]), 
+		.BurgerX(burger4_PtopX), 
+		.BurgerY(burger4_PtopY), 
+		.falling(ingredient_fall[1])
+	);
+
+	ingredient #(.Burger_X_Start(320), .Burger_Y_Start(220), .Burger_Y_End(398)) burger4BotBun (
+		.Reset(Reset_h), 
+		.frame_clk(VGA_VS), 
+		.ChefX(chef_xcoord), 
+		.ChefY(chef_ycoord), 
+		.aboveIngredientX(burger4_PtopX), 
+		.aboveIngredientY(burger4_PtopY), 
+		.fall((~ingredient1_bottom_color | ~ingredient2_bottom_color) & ingredient_falling[0]), 
+		.BurgerX(burger4_BBtopX), 
+		.BurgerY(burger4_BBtopY), 
+		.falling(ingredient_fall[0])
+	);
 
 	// the ingredient coordinates should be defined by a mux or something later
-	always_ff @ (posedge VGA_VS)
-	begin
-		if (Reset_h)
-		begin
-			ingredient1_ycoord <= burger1_topY;
-			ingredient1_xcoord <= burger1_topX;
-			ingredient_falling <= '0;
-		end
-		case (ingredient_fall >> 12)
-			4'b1000: 
-			begin
-				ingredient1_ycoord <= burger1_topY;
-				ingredient1_xcoord <= burger1_topX;
-				ingredient_falling <= 16'h8000;
-			end
-			4'b0100: 
-			begin
-				ingredient1_ycoord <= burger1_LtopY;
-				ingredient1_xcoord <= burger1_LtopX;
-				ingredient_falling <= 16'h4000;
-			end
-			4'b0010: 
-			begin
-				ingredient1_ycoord <= burger1_PtopY;
-				ingredient1_xcoord <= burger1_PtopX;
-				ingredient_falling <= 16'h2000;
-			end
-			4'b0001: 
-			begin
-				ingredient1_ycoord <= burger1_BBtopY;
-				ingredient1_xcoord <= burger1_BBtopX;
-				ingredient_falling <= 16'h1000;
-			end
-		endcase
-	end
+	fall_ram_logic ingredient_fall_ram_logic (
+		.clock(VGA_VS), 
+		.Reset(Reset_h), 
+		.ingredient_fall(ingredient_fall), 
+		.ingredient_falling(ingredient_falling), 
+		.ingredient1_ycoord(ingredient1_ycoord), 
+		.ingredient1_xcoord(ingredient1_xcoord), 
+		.ingredient2_ycoord(ingredient2_ycoord), 
+		.ingredient2_xcoord(ingredient2_xcoord), 
+		.*
+	);
 	
 	spritesheet sprite_offsets (
 		.drawxsig(drawxsig), 
@@ -349,7 +444,6 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.spritesheet_xoffset(spritesheet_xoffset), 
 		.spritesheet_yoffset(spritesheet_yoffset),
 		.chef(chef), 
-		.burger1_top(burger1_top), 
 		.sprite_color_index(sprite_color_index), 
 		.*
 	);
