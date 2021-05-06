@@ -448,7 +448,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.sprite_color_index(sprite_color_index), 
 		.*
 	);
-	
+
 	stage_ram stages (
 		.data(), 
 		.address(ycoord * 640 + xcoord), 
@@ -458,14 +458,22 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	);
 
 	// ['0x000000', '0x0000FF'] = [background, floor/ladders]
-	ladder_ram ladders (
+	// ladder_ram ladders (
+	// 	.address_a(chef_ycoord * 640 + (chef_xcoord + 8)), 
+	// 	.address_b((chef_ycoord + 16) * 640 + (chef_xcoord + 8)), 
+	// 	.clock(MAX10_CLK1_50), 
+	// 	.data_a(), 
+	// 	.data_b(), 
+	// 	.wren_a(1'b0), 
+	// 	.wren_b(1'b0), 
+	// 	.q_a(ladder_color_index_top), 
+	// 	.q_b(ladder_color_index_bottom)
+	// );
+
+	ladder_rom enemy_ladders (
 		.address_a(chef_ycoord * 640 + (chef_xcoord + 8)), 
 		.address_b((chef_ycoord + 16) * 640 + (chef_xcoord + 8)), 
 		.clock(MAX10_CLK1_50), 
-		.data_a(), 
-		.data_b(), 
-		.wren_a(1'b0), 
-		.wren_b(1'b0), 
 		.q_a(ladder_color_index_top), 
 		.q_b(ladder_color_index_bottom)
 	);
