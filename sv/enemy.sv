@@ -28,7 +28,7 @@ module enemy (
 				Enemy_X_Motion <= 10'd0;
 				Enemy_Y_Pos <= Enemy_Y_Center;
 				Enemy_X_Pos <= Enemy_X_Center;
-				touched_chef <= 1'b0;
+				//touched_chef <= 1'b0;
 				counter <= 1'b0;
         end
            
@@ -38,17 +38,12 @@ module enemy (
 				Enemy_X_Motion <= 10'd0;
 				Enemy_Y_Pos <= Enemy_Y_Center;
 				Enemy_X_Pos <= Enemy_X_Center;
-				touched_chef <= 1'b0;
+				//touched_chef <= 1'b0;
 				counter <= 1'b0;
 		  end
 		  
         else if (counter)
         begin 
-				if (((ChefX << 1 == Enemy_X_Pos) || (ChefX << 1 == Enemy_X_Pos + 16)) && ((ChefY << 1 == Enemy_Y_Pos) || (ChefY << 1 == Enemy_Y_Pos + 16)))
-				begin
-					 touched_chef <= 1'b1;
-				end
-				
 				if (climb && (Enemy_Y_Pos >> 1) < ChefY)
 				begin
 					Enemy_Y_Motion <= 1; // S
@@ -105,6 +100,17 @@ module enemy (
 			else 
 				counter <= 1'b1;
     end
+	 
+	 always_comb
+	 begin
+		  if (((ChefX << 1 >= Enemy_X_Pos - 28) && (ChefX << 1 <= Enemy_X_Pos + 28)) && ((ChefY << 1 >= Enemy_Y_Pos - 28) && (ChefY << 1 <= Enemy_Y_Pos + 28)))
+		  begin
+				touched_chef = 1'b1;
+		  end
+		  
+		  else
+				touched_chef = 1'b0;
+	 end
 
     assign EnemyX = Enemy_X_Pos >> 1;
     assign EnemyY = Enemy_Y_Pos >> 1;
