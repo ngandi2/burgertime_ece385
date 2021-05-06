@@ -47,8 +47,8 @@ module stage_bound_ram (
 	q_a,
 	q_b);
 
-	input	[18:0]  address_a;
-	input	[18:0]  address_b;
+	input	[15:0]  address_a;
+	input	[15:0]  address_b;
 	input	  clock;
 	input	[0:0]  data_a;
 	input	[0:0]  data_b;
@@ -105,8 +105,8 @@ module stage_bound_ram (
 		altsyncram_component.init_file = "./burgertime/stage_floors_ram_data.mif",
 		altsyncram_component.intended_device_family = "MAX 10",
 		altsyncram_component.lpm_type = "altsyncram",
-		altsyncram_component.numwords_a = 275200,
-		altsyncram_component.numwords_b = 275200,
+		altsyncram_component.numwords_a = 44720,
+		altsyncram_component.numwords_b = 44720,
 		altsyncram_component.operation_mode = "BIDIR_DUAL_PORT",
 		altsyncram_component.outdata_aclr_a = "NONE",
 		altsyncram_component.outdata_aclr_b = "NONE",
@@ -117,8 +117,8 @@ module stage_bound_ram (
 		altsyncram_component.read_during_write_mode_mixed_ports = "DONT_CARE",
 		altsyncram_component.read_during_write_mode_port_a = "NEW_DATA_WITH_NBE_READ",
 		altsyncram_component.read_during_write_mode_port_b = "NEW_DATA_WITH_NBE_READ",
-		altsyncram_component.widthad_a = 19,
-		altsyncram_component.widthad_b = 19,
+		altsyncram_component.widthad_a = 16,
+		altsyncram_component.widthad_b = 16,
 		altsyncram_component.width_a = 1,
 		altsyncram_component.width_b = 1,
 		altsyncram_component.width_byteena_a = 1,

@@ -43,7 +43,7 @@ module stage_ram (
 	wren,
 	q);
 
-	input	[18:0]  address;
+	input	[15:0]  address;
 	input	  clock;
 	input	[1:0]  data;
 	input	  wren;
@@ -90,14 +90,14 @@ module stage_ram (
 		altsyncram_component.intended_device_family = "MAX 10",
 		altsyncram_component.lpm_hint = "ENABLE_RUNTIME_MOD=NO",
 		altsyncram_component.lpm_type = "altsyncram",
-		altsyncram_component.numwords_a = 275200,
+		altsyncram_component.numwords_a = 44720,
 		altsyncram_component.operation_mode = "SINGLE_PORT",
 		altsyncram_component.outdata_aclr_a = "NONE",
 		altsyncram_component.outdata_reg_a = "CLOCK0",
 		altsyncram_component.power_up_uninitialized = "FALSE",
 		altsyncram_component.ram_block_type = "M9K",
 		altsyncram_component.read_during_write_mode_port_a = "DONT_CARE",
-		altsyncram_component.widthad_a = 19,
+		altsyncram_component.widthad_a = 16,
 		altsyncram_component.width_a = 2,
 		altsyncram_component.width_byteena_a = 1;
 

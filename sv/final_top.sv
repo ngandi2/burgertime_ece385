@@ -467,16 +467,16 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	
 	stage_ram stages (
 		.data(), 
-		.address(ycoord * 640 + xcoord), 
+		.address(ycoord * 208 + xcoord), 
 		.wren(1'b0), 
 		.clock(MAX10_CLK1_50), 
 		.q(stage_color_index)
 	);
 
 	// ['0x000000', '0x0000FF'] = [background, floor/ladders]
-	/*ladder_ram ladders (
-		.address_a(chef_ycoord * 640 + (chef_xcoord + 8)), 
-		.address_b((chef_ycoord + 16) * 640 + (chef_xcoord + 8)), 
+	ladder_ram ladders (
+		.address_a(chef_ycoord * 208 + (chef_xcoord + 8)), 
+		.address_b((chef_ycoord + 16) * 208 + (chef_xcoord + 8)), 
 		.clock(MAX10_CLK1_50), 
 		.data_a(), 
 		.data_b(), 
@@ -484,12 +484,12 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.wren_b(1'b0), 
 		.q_a(ladder_color_index_top), 
 		.q_b(ladder_color_index_bottom)
-	);*/
+	);
 	
 	// ['0x000000', '0x0000FF'] = [background, floor/ladders]
-	/*ladder_ram ladders_enemy (
-		.address_a(enemy_ycoord * 640 + (enemy_xcoord + 8)), 
-		.address_b((enemy_ycoord + 16) * 640 + (enemy_xcoord + 8)), 
+	ladder_ram ladders_enemy (
+		.address_a(enemy_ycoord * 208 + (enemy_xcoord + 8)), 
+		.address_b((enemy_ycoord + 16) * 208 + (enemy_xcoord + 8)), 
 		.clock(MAX10_CLK1_50), 
 		.data_a(), 
 		.data_b(), 
@@ -497,20 +497,36 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.wren_b(1'b0), 
 		.q_a(ladder_color_index_top_enemy), 
 		.q_b(ladder_color_index_bottom_enemy)
-	);*/
-	
-	ladder_rom enemy_ladders (
-		.address_a(chef_ycoord * 640 + (chef_xcoord + 8)), 
-		.address_b((chef_ycoord + 16) * 640 + (chef_xcoord + 8)), 
-		.clock(MAX10_CLK1_50), 
-		.q_a(ladder_color_index_top), 
-		.q_b(ladder_color_index_bottom)
 	);
+	
+	// ladder_rom enemy_ladders (
+	// 	.address_1(chef_ycoord * 640 + (chef_xcoord + 8)), 
+	// 	.address_2((chef_ycoord + 16) * 640 + (chef_xcoord + 8)), 
+	// 	.address_3(enemy_ycoord * 640 + (enemy_xcoord + 8)), 
+	// 	.address_4((enemy_ycoord + 16) * 640 + (enemy_xcoord + 8)), 
+	// 	.address_5(), 
+	// 	.address_6(), 
+	// 	.address_7(), 
+	// 	.address_8(), 
+	// 	.address_9(), 
+	// 	.address_10(), 
+	// 	.clock(MAX10_CLK1_50), 
+	// 	.q_1(ladder_color_index_bottom), 
+	// 	.q_2(ladder_color_index_top), 
+	// 	.q_3(ladder_color_index_top_enemy), 
+	// 	.q_4(ladder_color_index_bottom_enemy), 
+	// 	.q_5(), 
+	// 	.q_6(), 
+	// 	.q_7(), 
+	// 	.q_8(), 
+	// 	.q_9(), 
+	// 	.q_10()
+	// );
 
 	// ['0x000000', '0x0000FF'] = [background/ladders, floor]
 	stage_bound_ram ingredient_bound (
-		.address_a((ingredient1_ycoord + 6) * 640 + (ingredient1_xcoord + 16)), 
-		.address_b((ingredient2_ycoord + 6) * 640 + (ingredient2_xcoord + 16)), 
+		.address_a((ingredient1_ycoord + 6) * 208 + (ingredient1_xcoord + 16)), 
+		.address_b((ingredient2_ycoord + 6) * 208 + (ingredient2_xcoord + 16)), 
 		.clock(MAX10_CLK1_50), 
 		.data_a(), 
 		.data_b(), 

@@ -29,7 +29,7 @@ module chef (
            
         else 
         begin 
-				 /*case (keycode)
+				 case (keycode)
 					8'h04 : begin
 							  if (walk)
 							  begin
@@ -74,12 +74,12 @@ module chef (
 					          Chef_Y_Motion <= 0; // Anything else
 							    Chef_X_Motion <= 0;
 							    end
-			   endcase*/
+			   endcase
 				
 				 
 				if (!climb && !walk)
 				begin
-					// Chef_Y_Motion <= 1;
+					 Chef_Y_Motion <= 1;
 					 Chef_X_Motion <= 0;
 				end
 				 
