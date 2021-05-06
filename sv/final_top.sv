@@ -471,11 +471,27 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	// );
 
 	ladder_rom enemy_ladders (
-		.address_a(chef_ycoord * 640 + (chef_xcoord + 8)), 
-		.address_b((chef_ycoord + 16) * 640 + (chef_xcoord + 8)), 
+		.address_1(chef_ycoord * 640 + (chef_xcoord + 8)), 
+		.address_2((chef_ycoord + 16) * 640 + (chef_xcoord + 8)), 
+		.address_3(), 
+		.address_4(), 
+		.address_5(), 
+		.address_6(), 
+		.address_7(), 
+		.address_8(), 
+		.address_9(), 
+		.address_10(), 
 		.clock(MAX10_CLK1_50), 
-		.q_a(ladder_color_index_top), 
-		.q_b(ladder_color_index_bottom)
+		.q_1(ladder_color_index_bottom), 
+		.q_2(ladder_color_index_top), 
+		.q_3(), 
+		.q_4(), 
+		.q_5(), 
+		.q_6(), 
+		.q_7(), 
+		.q_8(), 
+		.q_9(), 
+		.q_10()
 	);
 
 	// ['0x000000', '0x0000FF'] = [background/ladders, floor]
