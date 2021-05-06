@@ -5,7 +5,7 @@ module fall_ram_logic (
   input [9:0] burger2_topX, burger2_topY, burger2_LtopX, burger2_LtopY, burger2_PtopX, burger2_PtopY, burger2_BBtopX, burger2_BBtopY, 
   input [9:0] burger3_topX, burger3_topY, burger3_LtopX, burger3_LtopY, burger3_PtopX, burger3_PtopY, burger3_BBtopX, burger3_BBtopY, 
   input [9:0] burger4_topX, burger4_topY, burger4_LtopX, burger4_LtopY, burger4_PtopX, burger4_PtopY, burger4_BBtopX, burger4_BBtopY, 
-  output [16:0] ingredient_falling, 
+  output [16:0] ingredient1_falling, ingredient2_falling, 
   output [9:0] ingredient1_ycoord, ingredient1_xcoord, ingredient2_ycoord, ingredient2_xcoord
 );
 
@@ -17,9 +17,9 @@ always_ff @ (posedge clock)
 			ingredient1_xcoord <= 10'd32;
       ingredient2_ycoord <= 10'd92;
 			ingredient2_xcoord <= 10'd32;
-			ingredient_falling <= '0;
+			ingredient1_falling <= '0;
+      ingredient2_falling <= '0;
 		end
-    ingredient_falling <= ingredient_fall;
 		case (ingredient_fall)
 			16'h8000: 
 			begin
@@ -27,6 +27,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_topX;
         ingredient2_ycoord <= 10'd92;
         ingredient2_xcoord <= 10'd32;
+        ingredient1_falling <= 16'h8000;
+        ingredient2_falling <= '0;
 			end
 			16'h4000: 
 			begin
@@ -34,6 +36,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_LtopX;
         ingredient2_ycoord <= 10'd92;
         ingredient2_xcoord <= 10'd32;
+        ingredient1_falling <= 16'h4000;
+        ingredient2_falling <= '0;
 			end
 			16'h2000: 
 			begin
@@ -41,6 +45,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_PtopX;
         ingredient2_ycoord <= 10'd92;
         ingredient2_xcoord <= 10'd32;
+        ingredient1_falling <= 16'h2000;
+        ingredient2_falling <= '0;
 			end
 			16'h1000: 
 			begin
@@ -48,6 +54,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_BBtopX;
         ingredient2_ycoord <= 10'd92;
         ingredient2_xcoord <= 10'd32;
+        ingredient1_falling <= 16'h1000;
+        ingredient2_falling <= '0;
 			end
 			16'h0800: 
 			begin
@@ -55,6 +63,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_topX;
         ingredient2_ycoord <= 10'd92;
         ingredient2_xcoord <= 10'd32;
+        ingredient1_falling <= 16'h0800;
+        ingredient2_falling <= '0;
 			end
 			16'h0400: 
 			begin
@@ -62,6 +72,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_LtopX;
         ingredient2_ycoord <= 10'd92;
         ingredient2_xcoord <= 10'd32;
+        ingredient1_falling <= 16'h0400;
+        ingredient2_falling <= '0;
 			end
 			16'h0200: 
 			begin
@@ -69,6 +81,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_PtopX;
         ingredient2_ycoord <= 10'd92;
         ingredient2_xcoord <= 10'd32;
+        ingredient1_falling <= 16'h0200;
+        ingredient2_falling <= '0;
 			end
 			16'h0100: 
 			begin
@@ -76,6 +90,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_BBtopX;
         ingredient2_ycoord <= 10'd92;
         ingredient2_xcoord <= 10'd32;
+        ingredient1_falling <= 16'h0100;
+        ingredient2_falling <= '0;
 			end
 			16'h0080: 
 			begin
@@ -83,6 +99,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger3_topX;
         ingredient2_ycoord <= 10'd92;
         ingredient2_xcoord <= 10'd32;
+        ingredient1_falling <= 16'h0080;
+        ingredient2_falling <= '0;
 			end
 			16'h0040: 
 			begin
@@ -90,6 +108,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger3_LtopX;
         ingredient2_ycoord <= 10'd92;
         ingredient2_xcoord <= 10'd32;
+        ingredient1_falling <= 16'h0040;
+        ingredient2_falling <= '0;
 			end
 			16'h0020: 
 			begin
@@ -97,6 +117,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger3_PtopX;
         ingredient2_ycoord <= 10'd92;
         ingredient2_xcoord <= 10'd32;
+        ingredient1_falling <= 16'h0020;
+        ingredient2_falling <= '0;
 			end
 			16'h0010: 
 			begin
@@ -104,6 +126,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger3_BBtopX;
         ingredient2_ycoord <= 10'd92;
         ingredient2_xcoord <= 10'd32;
+        ingredient1_falling <= 16'h0010;
+        ingredient2_falling <= '0;
 			end
 			16'h0008: 
 			begin
@@ -111,6 +135,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger4_topX;
         ingredient2_ycoord <= 10'd92;
         ingredient2_xcoord <= 10'd32;
+        ingredient1_falling <= 16'h0008;
+        ingredient2_falling <= '0;
 			end
 			16'h0004: 
 			begin
@@ -118,6 +144,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger4_LtopX;
         ingredient2_ycoord <= 10'd92;
         ingredient2_xcoord <= 10'd32;
+				ingredient1_falling <= 16'h0004;
+        ingredient2_falling <= '0;
 			end
 			16'h0002: 
 			begin
@@ -125,6 +153,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger4_PtopX;
         ingredient2_ycoord <= 10'd92;
         ingredient2_xcoord <= 10'd32;
+				ingredient1_falling <= 16'h0002;
+        ingredient2_falling <= '0;
 			end
 			16'h0001: 
 			begin
@@ -132,6 +162,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger4_BBtopX;
         ingredient2_ycoord <= 10'd92;
         ingredient2_xcoord <= 10'd32;
+				ingredient1_falling <= 16'h0001;
+        ingredient2_falling <= '0;
 			end
 
       16'h8800: 
@@ -140,6 +172,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_topX;
         ingredient2_ycoord <= burger2_topY;
         ingredient2_xcoord <= burger2_topX;
+				ingredient1_falling <= 16'h8000;
+        ingredient2_falling <= 16'h0800;
 			end
 			16'h4800: 
 			begin
@@ -147,6 +181,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_LtopX;
         ingredient2_ycoord <= burger2_topY;
         ingredient2_xcoord <= burger2_topX;
+				ingredient1_falling <= 16'h4000;
+        ingredient2_falling <= 16'h0800;
 			end
 			16'h2800: 
 			begin
@@ -154,6 +190,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_PtopX;
         ingredient2_ycoord <= burger2_topY;
         ingredient2_xcoord <= burger2_topX;
+				ingredient1_falling <= 16'h2000;
+        ingredient2_falling <= 16'h0800;
 			end
 			16'h1800: 
 			begin
@@ -161,6 +199,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_BBtopX;
         ingredient2_ycoord <= burger2_topY;
         ingredient2_xcoord <= burger2_topX;
+				ingredient1_falling <= 16'h1000;
+        ingredient2_falling <= 16'h0800;
 			end
 
       16'h8400: 
@@ -169,6 +209,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_topX;
         ingredient2_ycoord <= burger2_LtopY;
         ingredient2_xcoord <= burger2_LtopX;
+				ingredient1_falling <= 16'h8000;
+        ingredient2_falling <= 16'h0400;
 			end
 			16'h4400: 
 			begin
@@ -176,6 +218,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_LtopX;
         ingredient2_ycoord <= burger2_LtopY;
         ingredient2_xcoord <= burger2_LtopX;
+				ingredient1_falling <= 16'h4000;
+        ingredient2_falling <= 16'h0400;
 			end
 			16'h2400: 
 			begin
@@ -183,6 +227,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_PtopX;
         ingredient2_ycoord <= burger2_LtopY;
         ingredient2_xcoord <= burger2_LtopX;
+				ingredient1_falling <= 16'h2000;
+        ingredient2_falling <= 16'h0400;
 			end
 			16'h1400: 
 			begin
@@ -190,6 +236,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_BBtopX;
         ingredient2_ycoord <= burger2_LtopY;
         ingredient2_xcoord <= burger2_LtopX;
+				ingredient1_falling <= 16'h1000;
+        ingredient2_falling <= 16'h0400;
 			end
 
       16'h8200: 
@@ -198,6 +246,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_topX;
         ingredient2_ycoord <= burger2_PtopY;
         ingredient2_xcoord <= burger2_PtopX;
+				ingredient1_falling <= 16'h8000;
+        ingredient2_falling <= 16'h0200;
 			end
 			16'h4200: 
 			begin
@@ -205,6 +255,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_LtopX;
         ingredient2_ycoord <= burger2_PtopY;
         ingredient2_xcoord <= burger2_PtopX;
+				ingredient1_falling <= 16'h4000;
+        ingredient2_falling <= 16'h0200;
 			end
 			16'h2200: 
 			begin
@@ -212,6 +264,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_PtopX;
         ingredient2_ycoord <= burger2_PtopY;
         ingredient2_xcoord <= burger2_PtopX;
+				ingredient1_falling <= 16'h2000;
+        ingredient2_falling <= 16'h0200;
 			end
 			16'h1200: 
 			begin
@@ -219,6 +273,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_BBtopX;
         ingredient2_ycoord <= burger2_PtopY;
         ingredient2_xcoord <= burger2_PtopX;
+				ingredient1_falling <= 16'h1000;
+        ingredient2_falling <= 16'h0200;
 			end
 
       16'h8100: 
@@ -227,6 +283,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_topX;
         ingredient2_ycoord <= burger2_BBtopY;
         ingredient2_xcoord <= burger2_BBtopX;
+				ingredient1_falling <= 16'h8000;
+        ingredient2_falling <= 16'h0100;
 			end
 			16'h4100: 
 			begin
@@ -234,6 +292,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_LtopX;
         ingredient2_ycoord <= burger2_BBtopY;
         ingredient2_xcoord <= burger2_BBtopX;
+				ingredient1_falling <= 16'h4000;
+        ingredient2_falling <= 16'h0100;
 			end
 			16'h2100: 
 			begin
@@ -241,6 +301,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_PtopX;
         ingredient2_ycoord <= burger2_BBtopY;
         ingredient2_xcoord <= burger2_BBtopX;
+				ingredient1_falling <= 16'h2000;
+        ingredient2_falling <= 16'h0100;
 			end
 			16'h1100: 
 			begin
@@ -248,6 +310,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_BBtopX;
         ingredient2_ycoord <= burger2_BBtopY;
         ingredient2_xcoord <= burger2_BBtopX;
+				ingredient1_falling <= 16'h1000;
+        ingredient2_falling <= 16'h0100;
 			end
 
       16'h8080: 
@@ -256,6 +320,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_topX;
         ingredient2_ycoord <= burger3_topY;
         ingredient2_xcoord <= burger3_topX;
+				ingredient1_falling <= 16'h8000;
+        ingredient2_falling <= 16'h0080;
 			end
 			16'h4080: 
 			begin
@@ -263,6 +329,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_LtopX;
         ingredient2_ycoord <= burger3_topY;
         ingredient2_xcoord <= burger3_topX;
+				ingredient1_falling <= 16'h4000;
+        ingredient2_falling <= 16'h0080;
 			end
 			16'h2080: 
 			begin
@@ -270,6 +338,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_PtopX;
         ingredient2_ycoord <= burger3_topY;
         ingredient2_xcoord <= burger3_topX;
+				ingredient1_falling <= 16'h2000;
+        ingredient2_falling <= 16'h0080;
 			end
 			16'h1080: 
 			begin
@@ -277,6 +347,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_BBtopX;
         ingredient2_ycoord <= burger3_topY;
         ingredient2_xcoord <= burger3_topX;
+				ingredient1_falling <= 16'h1000;
+        ingredient2_falling <= 16'h0080;
 			end
 
       16'h8040: 
@@ -285,6 +357,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_topX;
         ingredient2_ycoord <= burger3_LtopY;
         ingredient2_xcoord <= burger3_LtopX;
+				ingredient1_falling <= 16'h8000;
+        ingredient2_falling <= 16'h0040;
 			end
 			16'h4040: 
 			begin
@@ -292,6 +366,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_LtopX;
         ingredient2_ycoord <= burger3_LtopY;
         ingredient2_xcoord <= burger3_LtopX;
+				ingredient1_falling <= 16'h4000;
+        ingredient2_falling <= 16'h0040;
 			end
 			16'h2040: 
 			begin
@@ -299,6 +375,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_PtopX;
         ingredient2_ycoord <= burger3_LtopY;
         ingredient2_xcoord <= burger3_LtopX;
+				ingredient1_falling <= 16'h2000;
+        ingredient2_falling <= 16'h0040;
 			end
 			16'h1040: 
 			begin
@@ -306,6 +384,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_BBtopX;
         ingredient2_ycoord <= burger3_LtopY;
         ingredient2_xcoord <= burger3_LtopX;
+				ingredient1_falling <= 16'h1000;
+        ingredient2_falling <= 16'h0040;
 			end
 
       16'h8020: 
@@ -314,6 +394,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_topX;
         ingredient2_ycoord <= burger3_PtopY;
         ingredient2_xcoord <= burger3_PtopX;
+				ingredient1_falling <= 16'h8000;
+        ingredient2_falling <= 16'h0020;
 			end
 			16'h4020: 
 			begin
@@ -321,6 +403,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_LtopX;
         ingredient2_ycoord <= burger3_PtopY;
         ingredient2_xcoord <= burger3_PtopX;
+				ingredient1_falling <= 16'h4000;
+        ingredient2_falling <= 16'h0020;
 			end
 			16'h2020: 
 			begin
@@ -328,6 +412,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_PtopX;
         ingredient2_ycoord <= burger3_PtopY;
         ingredient2_xcoord <= burger3_PtopX;
+				ingredient1_falling <= 16'h2000;
+        ingredient2_falling <= 16'h0020;
 			end
 			16'h1020: 
 			begin
@@ -335,6 +421,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_BBtopX;
         ingredient2_ycoord <= burger3_PtopY;
         ingredient2_xcoord <= burger3_PtopX;
+				ingredient1_falling <= 16'h1000;
+        ingredient2_falling <= 16'h0020;
 			end
 
       16'h8010: 
@@ -343,6 +431,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_topX;
         ingredient2_ycoord <= burger3_BBtopY;
         ingredient2_xcoord <= burger3_BBtopX;
+				ingredient1_falling <= 16'h8000;
+        ingredient2_falling <= 16'h0010;
 			end
 			16'h4010: 
 			begin
@@ -350,6 +440,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_LtopX;
         ingredient2_ycoord <= burger3_BBtopY;
         ingredient2_xcoord <= burger3_BBtopX;
+				ingredient1_falling <= 16'h4000;
+        ingredient2_falling <= 16'h0010;
 			end
 			16'h2010: 
 			begin
@@ -357,6 +449,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_PtopX;
         ingredient2_ycoord <= burger3_BBtopY;
         ingredient2_xcoord <= burger3_BBtopX;
+				ingredient1_falling <= 16'h2000;
+        ingredient2_falling <= 16'h0010;
 			end
 			16'h1010: 
 			begin
@@ -364,6 +458,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_BBtopX;
         ingredient2_ycoord <= burger3_BBtopY;
         ingredient2_xcoord <= burger3_BBtopX;
+				ingredient1_falling <= 16'h1000;
+        ingredient2_falling <= 16'h0010;
 			end
 
       16'h8008: 
@@ -372,6 +468,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_topX;
         ingredient2_ycoord <= burger4_topY;
         ingredient2_xcoord <= burger4_topX;
+				ingredient1_falling <= 16'h8000;
+        ingredient2_falling <= 16'h0008;
 			end
 			16'h4008: 
 			begin
@@ -379,6 +477,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_LtopX;
         ingredient2_ycoord <= burger4_topY;
         ingredient2_xcoord <= burger4_topX;
+				ingredient1_falling <= 16'h4000;
+        ingredient2_falling <= 16'h0008;
 			end
 			16'h2008: 
 			begin
@@ -386,6 +486,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_PtopX;
         ingredient2_ycoord <= burger4_topY;
         ingredient2_xcoord <= burger4_topX;
+				ingredient1_falling <= 16'h2000;
+        ingredient2_falling <= 16'h0008;
 			end
 			16'h1008: 
 			begin
@@ -393,6 +495,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_BBtopX;
         ingredient2_ycoord <= burger4_topY;
         ingredient2_xcoord <= burger4_topX;
+				ingredient1_falling <= 16'h1000;
+        ingredient2_falling <= 16'h0008;
 			end
 
       16'h8004: 
@@ -401,6 +505,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_topX;
         ingredient2_ycoord <= burger4_LtopY;
         ingredient2_xcoord <= burger4_LtopX;
+				ingredient1_falling <= 16'h8000;
+        ingredient2_falling <= 16'h0004;
 			end
 			16'h4004: 
 			begin
@@ -408,6 +514,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_LtopX;
         ingredient2_ycoord <= burger4_LtopY;
         ingredient2_xcoord <= burger4_LtopX;
+				ingredient1_falling <= 16'h4000;
+        ingredient2_falling <= 16'h0004;
 			end
 			16'h2004: 
 			begin
@@ -415,6 +523,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_PtopX;
         ingredient2_ycoord <= burger4_LtopY;
         ingredient2_xcoord <= burger4_LtopX;
+				ingredient1_falling <= 16'h2000;
+        ingredient2_falling <= 16'h0004;
 			end
 			16'h1004: 
 			begin
@@ -422,6 +532,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_BBtopX;
         ingredient2_ycoord <= burger4_LtopY;
         ingredient2_xcoord <= burger4_LtopX;
+				ingredient1_falling <= 16'h1000;
+        ingredient2_falling <= 16'h0004;
 			end
 
       16'h8002: 
@@ -430,6 +542,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_topX;
         ingredient2_ycoord <= burger4_PtopY;
         ingredient2_xcoord <= burger4_PtopX;
+				ingredient1_falling <= 16'h8000;
+        ingredient2_falling <= 16'h0002;
 			end
 			16'h4002: 
 			begin
@@ -437,6 +551,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_LtopX;
         ingredient2_ycoord <= burger4_PtopY;
         ingredient2_xcoord <= burger4_PtopX;
+				ingredient1_falling <= 16'h4000;
+        ingredient2_falling <= 16'h0002;
 			end
 			16'h2002: 
 			begin
@@ -444,6 +560,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_PtopX;
         ingredient2_ycoord <= burger4_PtopY;
         ingredient2_xcoord <= burger4_PtopX;
+				ingredient1_falling <= 16'h2000;
+        ingredient2_falling <= 16'h0002;
 			end
 			16'h1002: 
 			begin
@@ -451,6 +569,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_BBtopX;
         ingredient2_ycoord <= burger4_PtopY;
         ingredient2_xcoord <= burger4_PtopX;
+				ingredient1_falling <= 16'h1000;
+        ingredient2_falling <= 16'h0002;
 			end
 
       16'h8001: 
@@ -459,6 +579,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_topX;
         ingredient2_ycoord <= burger4_BBtopY;
         ingredient2_xcoord <= burger4_BBtopX;
+				ingredient1_falling <= 16'h8000;
+        ingredient2_falling <= 16'h0001;
 			end
 			16'h4001: 
 			begin
@@ -466,6 +588,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_LtopX;
         ingredient2_ycoord <= burger4_BBtopY;
         ingredient2_xcoord <= burger4_BBtopX;
+				ingredient1_falling <= 16'h4000;
+        ingredient2_falling <= 16'h0001;
 			end
 			16'h2001: 
 			begin
@@ -473,6 +597,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_PtopX;
         ingredient2_ycoord <= burger4_BBtopY;
         ingredient2_xcoord <= burger4_BBtopX;
+				ingredient1_falling <= 16'h2000;
+        ingredient2_falling <= 16'h0001;
 			end
 			16'h1001: 
 			begin
@@ -480,6 +606,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger1_BBtopX;
         ingredient2_ycoord <= burger4_BBtopY;
         ingredient2_xcoord <= burger4_BBtopX;
+				ingredient1_falling <= 16'h1000;
+        ingredient2_falling <= 16'h0001;
 			end
 
 			16'h0880: 
@@ -488,6 +616,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_topX;
         ingredient2_ycoord <= burger3_topY;
         ingredient2_xcoord <= burger3_topX;
+				ingredient1_falling <= 16'h0800;
+        ingredient2_falling <= 16'h0080;
 			end
 			16'h0480: 
 			begin
@@ -495,6 +625,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_LtopX;
         ingredient2_ycoord <= burger3_topY;
         ingredient2_xcoord <= burger3_topX;
+				ingredient1_falling <= 16'h0400;
+        ingredient2_falling <= 16'h0080;
 			end
 			16'h0280: 
 			begin
@@ -502,6 +634,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_PtopX;
         ingredient2_ycoord <= burger3_topY;
         ingredient2_xcoord <= burger3_topX;
+				ingredient1_falling <= 16'h0200;
+        ingredient2_falling <= 16'h0080;
 			end
 			16'h0180: 
 			begin
@@ -509,6 +643,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_BBtopX;
         ingredient2_ycoord <= burger3_topY;
         ingredient2_xcoord <= burger3_topX;
+				ingredient1_falling <= 16'h0100;
+        ingredient2_falling <= 16'h0080;
 			end
 
       16'h0840: 
@@ -517,6 +653,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_topX;
         ingredient2_ycoord <= burger3_LtopY;
         ingredient2_xcoord <= burger3_LtopX;
+				ingredient1_falling <= 16'h0800;
+        ingredient2_falling <= 16'h0040;
 			end
 			16'h0440: 
 			begin
@@ -524,6 +662,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_LtopX;
         ingredient2_ycoord <= burger3_LtopY;
         ingredient2_xcoord <= burger3_LtopX;
+				ingredient1_falling <= 16'h0400;
+        ingredient2_falling <= 16'h0040;
 			end
 			16'h0240: 
 			begin
@@ -531,6 +671,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_PtopX;
         ingredient2_ycoord <= burger3_LtopY;
         ingredient2_xcoord <= burger3_LtopX;
+				ingredient1_falling <= 16'h0200;
+        ingredient2_falling <= 16'h0040;
 			end
 			16'h0140: 
 			begin
@@ -538,6 +680,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_BBtopX;
         ingredient2_ycoord <= burger3_LtopY;
         ingredient2_xcoord <= burger3_LtopX;
+				ingredient1_falling <= 16'h0100;
+        ingredient2_falling <= 16'h0040;
 			end
 
       16'h0820: 
@@ -546,6 +690,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_topX;
         ingredient2_ycoord <= burger3_PtopY;
         ingredient2_xcoord <= burger3_PtopX;
+				ingredient1_falling <= 16'h0800;
+        ingredient2_falling <= 16'h0020;
 			end
 			16'h0420: 
 			begin
@@ -553,6 +699,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_LtopX;
         ingredient2_ycoord <= burger3_PtopY;
         ingredient2_xcoord <= burger3_PtopX;
+				ingredient1_falling <= 16'h0400;
+        ingredient2_falling <= 16'h0020;
 			end
 			16'h0220: 
 			begin
@@ -560,6 +708,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_PtopX;
         ingredient2_ycoord <= burger3_PtopY;
         ingredient2_xcoord <= burger3_PtopX;
+				ingredient1_falling <= 16'h0200;
+        ingredient2_falling <= 16'h0020;
 			end
 			16'h0120: 
 			begin
@@ -567,6 +717,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_BBtopX;
         ingredient2_ycoord <= burger3_PtopY;
         ingredient2_xcoord <= burger3_PtopX;
+				ingredient1_falling <= 16'h0100;
+        ingredient2_falling <= 16'h0020;
 			end
 
       16'h0810: 
@@ -575,6 +727,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_topX;
         ingredient2_ycoord <= burger3_BBtopY;
         ingredient2_xcoord <= burger3_BBtopX;
+				ingredient1_falling <= 16'h0800;
+        ingredient2_falling <= 16'h0010;
 			end
 			16'h0410: 
 			begin
@@ -582,6 +736,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_LtopX;
         ingredient2_ycoord <= burger3_BBtopY;
         ingredient2_xcoord <= burger3_BBtopX;
+				ingredient1_falling <= 16'h0400;
+        ingredient2_falling <= 16'h0010;
 			end
 			16'h0210: 
 			begin
@@ -589,6 +745,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_PtopX;
         ingredient2_ycoord <= burger3_BBtopY;
         ingredient2_xcoord <= burger3_BBtopX;
+				ingredient1_falling <= 16'h0200;
+        ingredient2_falling <= 16'h0010;
 			end
 			16'h0110: 
 			begin
@@ -596,6 +754,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_BBtopX;
         ingredient2_ycoord <= burger3_BBtopY;
         ingredient2_xcoord <= burger3_BBtopX;
+				ingredient1_falling <= 16'h0100;
+        ingredient2_falling <= 16'h0010;
 			end
 
       16'h0808: 
@@ -604,6 +764,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_topX;
         ingredient2_ycoord <= burger4_topY;
         ingredient2_xcoord <= burger4_topX;
+				ingredient1_falling <= 16'h0800;
+        ingredient2_falling <= 16'h0008;
 			end
 			16'h0408: 
 			begin
@@ -611,6 +773,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_LtopX;
         ingredient2_ycoord <= burger4_topY;
         ingredient2_xcoord <= burger4_topX;
+				ingredient1_falling <= 16'h0400;
+        ingredient2_falling <= 16'h0008;
 			end
 			16'h0208: 
 			begin
@@ -618,6 +782,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_PtopX;
         ingredient2_ycoord <= burger4_topY;
         ingredient2_xcoord <= burger4_topX;
+				ingredient1_falling <= 16'h0200;
+        ingredient2_falling <= 16'h0008;
 			end
 			16'h0108: 
 			begin
@@ -625,6 +791,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_BBtopX;
         ingredient2_ycoord <= burger4_topY;
         ingredient2_xcoord <= burger4_topX;
+				ingredient1_falling <= 16'h0100;
+        ingredient2_falling <= 16'h0008;
 			end
 
       16'h0804: 
@@ -633,6 +801,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_topX;
         ingredient2_ycoord <= burger4_LtopY;
         ingredient2_xcoord <= burger4_LtopX;
+				ingredient1_falling <= 16'h0800;
+        ingredient2_falling <= 16'h0004;
 			end
 			16'h0404: 
 			begin
@@ -640,6 +810,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_LtopX;
         ingredient2_ycoord <= burger4_LtopY;
         ingredient2_xcoord <= burger4_LtopX;
+				ingredient1_falling <= 16'h0400;
+        ingredient2_falling <= 16'h0004;
 			end
 			16'h0204: 
 			begin
@@ -647,6 +819,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_PtopX;
         ingredient2_ycoord <= burger4_LtopY;
         ingredient2_xcoord <= burger4_LtopX;
+				ingredient1_falling <= 16'h0200;
+        ingredient2_falling <= 16'h0004;
 			end
 			16'h0104: 
 			begin
@@ -654,6 +828,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_BBtopX;
         ingredient2_ycoord <= burger4_LtopY;
         ingredient2_xcoord <= burger4_LtopX;
+				ingredient1_falling <= 16'h0100;
+        ingredient2_falling <= 16'h0004;
 			end
 
       16'h0802: 
@@ -662,6 +838,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_topX;
         ingredient2_ycoord <= burger4_PtopY;
         ingredient2_xcoord <= burger4_PtopX;
+				ingredient1_falling <= 16'h0800;
+        ingredient2_falling <= 16'h0002;
 			end
 			16'h0402: 
 			begin
@@ -669,6 +847,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_LtopX;
         ingredient2_ycoord <= burger4_PtopY;
         ingredient2_xcoord <= burger4_PtopX;
+				ingredient1_falling <= 16'h0400;
+        ingredient2_falling <= 16'h0002;
 			end
 			16'h0202: 
 			begin
@@ -676,6 +856,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_PtopX;
         ingredient2_ycoord <= burger4_PtopY;
         ingredient2_xcoord <= burger4_PtopX;
+				ingredient1_falling <= 16'h0200;
+        ingredient2_falling <= 16'h0002;
 			end
 			16'h0102: 
 			begin
@@ -683,6 +865,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_BBtopX;
         ingredient2_ycoord <= burger4_PtopY;
         ingredient2_xcoord <= burger4_PtopX;
+				ingredient1_falling <= 16'h0100;
+        ingredient2_falling <= 16'h0002;
 			end
 
       16'h0801: 
@@ -691,6 +875,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_topX;
         ingredient2_ycoord <= burger4_BBtopY;
         ingredient2_xcoord <= burger4_BBtopX;
+				ingredient1_falling <= 16'h0800;
+        ingredient2_falling <= 16'h0001;
 			end
 			16'h0401: 
 			begin
@@ -698,6 +884,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_LtopX;
         ingredient2_ycoord <= burger4_BBtopY;
         ingredient2_xcoord <= burger4_BBtopX;
+				ingredient1_falling <= 16'h0400;
+        ingredient2_falling <= 16'h0001;
 			end
 			16'h0201: 
 			begin
@@ -705,6 +893,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_PtopX;
         ingredient2_ycoord <= burger4_BBtopY;
         ingredient2_xcoord <= burger4_BBtopX;
+				ingredient1_falling <= 16'h0200;
+        ingredient2_falling <= 16'h0001;
 			end
 			16'h0101: 
 			begin
@@ -712,6 +902,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger2_BBtopX;
         ingredient2_ycoord <= burger4_BBtopY;
         ingredient2_xcoord <= burger4_BBtopX;
+				ingredient1_falling <= 16'h0100;
+        ingredient2_falling <= 16'h0001;
 			end
 
       16'h0081: 
@@ -720,6 +912,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger3_topX;
         ingredient2_ycoord <= burger4_BBtopY;
         ingredient2_xcoord <= burger4_BBtopX;
+				ingredient1_falling <= 16'h0080;
+        ingredient2_falling <= 16'h0001;
 			end
 			16'h0041: 
 			begin
@@ -727,6 +921,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger3_LtopX;
         ingredient2_ycoord <= burger4_BBtopY;
         ingredient2_xcoord <= burger4_BBtopX;
+				ingredient1_falling <= 16'h0040;
+        ingredient2_falling <= 16'h0001;
 			end
 			16'h0021: 
 			begin
@@ -734,6 +930,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger3_PtopX;
         ingredient2_ycoord <= burger4_BBtopY;
         ingredient2_xcoord <= burger4_BBtopX;
+				ingredient1_falling <= 16'h0020;
+        ingredient2_falling <= 16'h0001;
 			end
 			16'h0011: 
 			begin
@@ -741,6 +939,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger3_BBtopX;
         ingredient2_ycoord <= burger4_BBtopY;
         ingredient2_xcoord <= burger4_BBtopX;
+				ingredient1_falling <= 16'h0010;
+        ingredient2_falling <= 16'h0001;
 			end
 
       16'h0082: 
@@ -749,6 +949,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger3_topX;
         ingredient2_ycoord <= burger4_PtopY;
         ingredient2_xcoord <= burger4_PtopX;
+				ingredient1_falling <= 16'h0080;
+        ingredient2_falling <= 16'h0002;
 			end
 			16'h0042: 
 			begin
@@ -756,6 +958,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger3_LtopX;
         ingredient2_ycoord <= burger4_PtopY;
         ingredient2_xcoord <= burger4_PtopX;
+				ingredient1_falling <= 16'h0040;
+        ingredient2_falling <= 16'h0002;
 			end
 			16'h0022: 
 			begin
@@ -763,6 +967,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger3_PtopX;
         ingredient2_ycoord <= burger4_PtopY;
         ingredient2_xcoord <= burger4_PtopX;
+				ingredient1_falling <= 16'h0020;
+        ingredient2_falling <= 16'h0002;
 			end
 			16'h0012: 
 			begin
@@ -770,6 +976,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger3_BBtopX;
         ingredient2_ycoord <= burger4_PtopY;
         ingredient2_xcoord <= burger4_PtopX;
+				ingredient1_falling <= 16'h0010;
+        ingredient2_falling <= 16'h0002;
 			end
 
       16'h0084: 
@@ -778,6 +986,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger3_topX;
         ingredient2_ycoord <= burger4_LtopY;
         ingredient2_xcoord <= burger4_LtopX;
+				ingredient1_falling <= 16'h0080;
+        ingredient2_falling <= 16'h0004;
 			end
 			16'h0044: 
 			begin
@@ -785,6 +995,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger3_LtopX;
         ingredient2_ycoord <= burger4_LtopY;
         ingredient2_xcoord <= burger4_LtopX;
+				ingredient1_falling <= 16'h0040;
+        ingredient2_falling <= 16'h0004;
 			end
 			16'h0024: 
 			begin
@@ -792,6 +1004,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger3_PtopX;
         ingredient2_ycoord <= burger4_LtopY;
         ingredient2_xcoord <= burger4_LtopX;
+				ingredient1_falling <= 16'h0020;
+        ingredient2_falling <= 16'h0004;
 			end
 			16'h0014: 
 			begin
@@ -799,6 +1013,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger3_BBtopX;
         ingredient2_ycoord <= burger4_LtopY;
         ingredient2_xcoord <= burger4_LtopX;
+				ingredient1_falling <= 16'h0010;
+        ingredient2_falling <= 16'h0004;
 			end
 
       16'h0088: 
@@ -807,6 +1023,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger3_topX;
         ingredient2_ycoord <= burger4_topY;
         ingredient2_xcoord <= burger4_topX;
+				ingredient1_falling <= 16'h0080;
+        ingredient2_falling <= 16'h0008;
 			end
 			16'h0048: 
 			begin
@@ -814,6 +1032,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger3_LtopX;
         ingredient2_ycoord <= burger4_topY;
         ingredient2_xcoord <= burger4_topX;
+				ingredient1_falling <= 16'h0040;
+        ingredient2_falling <= 16'h0008;
 			end
 			16'h0028: 
 			begin
@@ -821,6 +1041,8 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger3_PtopX;
         ingredient2_ycoord <= burger4_topY;
         ingredient2_xcoord <= burger4_topX;
+				ingredient1_falling <= 16'h0020;
+        ingredient2_falling <= 16'h0008;
 			end
 			16'h0018: 
 			begin
@@ -828,15 +1050,18 @@ always_ff @ (posedge clock)
 				ingredient1_xcoord <= burger3_BBtopX;
         ingredient2_ycoord <= burger4_topY;
         ingredient2_xcoord <= burger4_topX;
+				ingredient1_falling <= 16'h0010;
+        ingredient2_falling <= 16'h0008;
 			end
 
-      default: 
-			begin
-				ingredient1_ycoord <= 10'd92;
-				ingredient1_xcoord <= 10'd32;
-        ingredient2_ycoord <= 10'd92;
-        ingredient2_xcoord <= 10'd32;
-			end
+      // default: 
+			// begin
+			// 	ingredient1_ycoord <= 10'd92;
+			// 	ingredient1_xcoord <= 10'd32;
+      //   ingredient2_ycoord <= 10'd92;
+      //   ingredient2_xcoord <= 10'd32;
+			// 	// ingredient1_falling <= '0;
+      // end
 		endcase
 	end
 endmodule

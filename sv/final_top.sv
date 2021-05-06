@@ -168,7 +168,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	logic [9:0] burger4_topX, burger4_topY, burger4_LtopX, burger4_LtopY, burger4_PtopX, burger4_PtopY, burger4_BBtopX, burger4_BBtopY;
 	logic [9:0] spritesheet_x, spritesheet_y, spritesheet_xoffset, spritesheet_yoffset;
 	logic chef;
-	logic [16:0] ingredient_fall, ingredient_falling;
+	logic [16:0] ingredient_fall, ingredient1_falling, ingredient2_falling;
 
 //instantiate a vga_controller, ball, and color_mapper here with the ports.
 	vga_controller vga (
@@ -218,7 +218,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.ChefY(chef_ycoord), 
 		.aboveIngredientX(10'd0), 
 		.aboveIngredientY(10'd0), 
-		.fall((~ingredient1_bottom_color | ~ingredient2_bottom_color) & ingredient_falling[15]), 
+		.fall((~ingredient1_bottom_color & ingredient1_falling[15]) | (~ingredient2_bottom_color & ingredient2_falling[15])), 
 		.BurgerX(burger1_topX), 
 		.BurgerY(burger1_topY), 
 		.falling(ingredient_fall[15])
@@ -231,7 +231,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.ChefY(chef_ycoord), 
 		.aboveIngredientX(burger1_topX), 
 		.aboveIngredientY(burger1_topY), 
-		.fall((~ingredient1_bottom_color | ~ingredient2_bottom_color) & ingredient_falling[14]), 
+		.fall((~ingredient1_bottom_color & ingredient1_falling[14]) | (~ingredient2_bottom_color & ingredient2_falling[14])), 
 		.BurgerX(burger1_LtopX), 
 		.BurgerY(burger1_LtopY), 
 		.falling(ingredient_fall[14])
@@ -244,7 +244,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.ChefY(chef_ycoord), 
 		.aboveIngredientX(burger1_LtopX), 
 		.aboveIngredientY(burger1_LtopY), 
-		.fall((~ingredient1_bottom_color | ~ingredient2_bottom_color) & ingredient_falling[13]), 
+		.fall((~ingredient1_bottom_color & ingredient1_falling[13]) | (~ingredient2_bottom_color & ingredient2_falling[13])), 
 		.BurgerX(burger1_PtopX), 
 		.BurgerY(burger1_PtopY), 
 		.falling(ingredient_fall[13])
@@ -257,7 +257,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.ChefY(chef_ycoord), 
 		.aboveIngredientX(burger1_PtopX), 
 		.aboveIngredientY(burger1_PtopY), 
-		.fall((~ingredient1_bottom_color | ~ingredient2_bottom_color) & ingredient_falling[12]), 
+		.fall((~ingredient1_bottom_color & ingredient1_falling[12]) | (~ingredient2_bottom_color & ingredient2_falling[12])), 
 		.BurgerX(burger1_BBtopX), 
 		.BurgerY(burger1_BBtopY), 
 		.falling(ingredient_fall[12])
@@ -270,7 +270,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.ChefY(chef_ycoord), 
 		.aboveIngredientX(10'd0), 
 		.aboveIngredientY(10'd0), 
-		.fall((~ingredient1_bottom_color | ~ingredient2_bottom_color) & ingredient_falling[11]), 
+		.fall((~ingredient1_bottom_color & ingredient1_falling[11]) | (~ingredient2_bottom_color & ingredient2_falling[11])), 
 		.BurgerX(burger2_topX), 
 		.BurgerY(burger2_topY), 
 		.falling(ingredient_fall[11])
@@ -283,7 +283,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.ChefY(chef_ycoord), 
 		.aboveIngredientX(burger2_topX), 
 		.aboveIngredientY(burger2_topY), 
-		.fall((~ingredient1_bottom_color | ~ingredient2_bottom_color) & ingredient_falling[10]), 
+		.fall((~ingredient1_bottom_color & ingredient1_falling[10]) | (~ingredient2_bottom_color & ingredient2_falling[10])), 
 		.BurgerX(burger2_LtopX), 
 		.BurgerY(burger2_LtopY), 
 		.falling(ingredient_fall[10])
@@ -296,7 +296,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.ChefY(chef_ycoord), 
 		.aboveIngredientX(burger2_LtopX), 
 		.aboveIngredientY(burger2_LtopY), 
-		.fall((~ingredient1_bottom_color | ~ingredient2_bottom_color) & ingredient_falling[9]), 
+		.fall((~ingredient1_bottom_color & ingredient1_falling[9]) | (~ingredient2_bottom_color & ingredient2_falling[9])), 
 		.BurgerX(burger2_PtopX), 
 		.BurgerY(burger2_PtopY), 
 		.falling(ingredient_fall[9])
@@ -309,7 +309,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.ChefY(chef_ycoord), 
 		.aboveIngredientX(burger2_PtopX), 
 		.aboveIngredientY(burger2_PtopY), 
-		.fall((~ingredient1_bottom_color | ~ingredient2_bottom_color) & ingredient_falling[8]), 
+		.fall((~ingredient1_bottom_color & ingredient1_falling[8]) | (~ingredient2_bottom_color & ingredient2_falling[8])), 
 		.BurgerX(burger2_BBtopX), 
 		.BurgerY(burger2_BBtopY), 
 		.falling(ingredient_fall[8])
@@ -322,7 +322,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.ChefY(chef_ycoord), 
 		.aboveIngredientX(10'd0), 
 		.aboveIngredientY(10'd0), 
-		.fall((~ingredient1_bottom_color | ~ingredient2_bottom_color) & ingredient_falling[7]), 
+		.fall((~ingredient1_bottom_color & ingredient1_falling[7]) | (~ingredient2_bottom_color & ingredient2_falling[7])), 
 		.BurgerX(burger3_topX), 
 		.BurgerY(burger3_topY), 
 		.falling(ingredient_fall[7])
@@ -335,7 +335,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.ChefY(chef_ycoord), 
 		.aboveIngredientX(burger3_topX), 
 		.aboveIngredientY(burger3_topY), 
-		.fall((~ingredient1_bottom_color | ~ingredient2_bottom_color) & ingredient_falling[6]), 
+		.fall((~ingredient1_bottom_color & ingredient1_falling[6]) | (~ingredient2_bottom_color & ingredient2_falling[6])), 
 		.BurgerX(burger3_LtopX), 
 		.BurgerY(burger3_LtopY), 
 		.falling(ingredient_fall[6])
@@ -348,7 +348,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.ChefY(chef_ycoord), 
 		.aboveIngredientX(burger3_LtopX), 
 		.aboveIngredientY(burger3_LtopY), 
-		.fall((~ingredient1_bottom_color | ~ingredient2_bottom_color) & ingredient_falling[5]), 
+		.fall((~ingredient1_bottom_color & ingredient1_falling[5]) | (~ingredient2_bottom_color & ingredient2_falling[5])), 
 		.BurgerX(burger3_PtopX), 
 		.BurgerY(burger3_PtopY), 
 		.falling(ingredient_fall[5])
@@ -361,7 +361,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.ChefY(chef_ycoord), 
 		.aboveIngredientX(burger3_PtopX), 
 		.aboveIngredientY(burger3_PtopY), 
-		.fall((~ingredient1_bottom_color | ~ingredient2_bottom_color) & ingredient_falling[4]), 
+		.fall((~ingredient1_bottom_color & ingredient1_falling[4]) | (~ingredient2_bottom_color & ingredient2_falling[4])), 
 		.BurgerX(burger3_BBtopX), 
 		.BurgerY(burger3_BBtopY), 
 		.falling(ingredient_fall[4])
@@ -374,7 +374,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.ChefY(chef_ycoord), 
 		.aboveIngredientX(10'd0), 
 		.aboveIngredientY(10'd0), 
-		.fall((~ingredient1_bottom_color | ~ingredient2_bottom_color) & ingredient_falling[3]), 
+		.fall((~ingredient1_bottom_color & ingredient1_falling[3]) | (~ingredient2_bottom_color & ingredient2_falling[3])), 
 		.BurgerX(burger4_topX), 
 		.BurgerY(burger4_topY), 
 		.falling(ingredient_fall[3])
@@ -387,7 +387,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.ChefY(chef_ycoord), 
 		.aboveIngredientX(burger4_topX), 
 		.aboveIngredientY(burger4_topY), 
-		.fall((~ingredient1_bottom_color | ~ingredient2_bottom_color) & ingredient_falling[2]), 
+		.fall((~ingredient1_bottom_color & ingredient1_falling[2]) | (~ingredient2_bottom_color & ingredient2_falling[2])), 
 		.BurgerX(burger4_LtopX), 
 		.BurgerY(burger4_LtopY), 
 		.falling(ingredient_fall[2])
@@ -400,7 +400,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.ChefY(chef_ycoord), 
 		.aboveIngredientX(burger4_LtopX), 
 		.aboveIngredientY(burger4_LtopY), 
-		.fall((~ingredient1_bottom_color | ~ingredient2_bottom_color) & ingredient_falling[1]), 
+		.fall((~ingredient1_bottom_color & ingredient1_falling[1]) | (~ingredient2_bottom_color & ingredient2_falling[1])), 
 		.BurgerX(burger4_PtopX), 
 		.BurgerY(burger4_PtopY), 
 		.falling(ingredient_fall[1])
@@ -413,7 +413,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.ChefY(chef_ycoord), 
 		.aboveIngredientX(burger4_PtopX), 
 		.aboveIngredientY(burger4_PtopY), 
-		.fall((~ingredient1_bottom_color | ~ingredient2_bottom_color) & ingredient_falling[0]), 
+		.fall((~ingredient1_bottom_color & ingredient1_falling[0]) | (~ingredient2_bottom_color & ingredient2_falling[0])), 
 		.BurgerX(burger4_BBtopX), 
 		.BurgerY(burger4_BBtopY), 
 		.falling(ingredient_fall[0])
@@ -424,7 +424,8 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.clock(VGA_VS), 
 		.Reset(Reset_h), 
 		.ingredient_fall(ingredient_fall), 
-		.ingredient_falling(ingredient_falling), 
+		.ingredient1_falling(ingredient1_falling), 
+		.ingredient2_falling(ingredient2_falling), 
 		.ingredient1_ycoord(ingredient1_ycoord), 
 		.ingredient1_xcoord(ingredient1_xcoord), 
 		.ingredient2_ycoord(ingredient2_ycoord), 
