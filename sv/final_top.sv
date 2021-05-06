@@ -158,17 +158,18 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		
 	);
 
-	logic ingredient1_bottom_color, ingredient2_bottom_color, ladder_color_index_top, ladder_color_index_bottom, ladder_color_index_top_enemy, ladder_color_index_bottom_enemy;
+	logic ingredient1_bottom_color, ingredient2_bottom_color, ladder_color_index_top, ladder_color_index_bottom, ladder_color_index_top_enemy, ladder_color_index_bottom_enemy, ladder_color_index_top_enemy1, ladder_color_index_bottom_enemy1;
 	logic [1:0] stage_color_index;
 	logic [2:0] sprite_color_index;
-	logic [9:0] xcoord, ycoord, chef_xcoord, chef_ycoord, enemy_xcoord, enemy_ycoord, ingredient1_ycoord, ingredient1_xcoord, ingredient2_ycoord, ingredient2_xcoord;
+	logic [1:0] lives;
+	logic [9:0] xcoord, ycoord, chef_xcoord, chef_ycoord, enemy_xcoord, enemy_ycoord, enemy1_xcoord, enemy1_ycoord, ingredient1_ycoord, ingredient1_xcoord, ingredient2_ycoord, ingredient2_xcoord;
 	logic [9:0] burger1_topX, burger1_topY, burger1_LtopX, burger1_LtopY, burger1_PtopX, burger1_PtopY, burger1_BBtopX, burger1_BBtopY;
 	logic [9:0] burger2_topX, burger2_topY, burger2_LtopX, burger2_LtopY, burger2_PtopX, burger2_PtopY, burger2_BBtopX, burger2_BBtopY;
 	logic [9:0] burger3_topX, burger3_topY, burger3_LtopX, burger3_LtopY, burger3_PtopX, burger3_PtopY, burger3_BBtopX, burger3_BBtopY;
 	logic [9:0] burger4_topX, burger4_topY, burger4_LtopX, burger4_LtopY, burger4_PtopX, burger4_PtopY, burger4_BBtopX, burger4_BBtopY;
 	logic [9:0] spritesheet_x, spritesheet_y, spritesheet_xoffset, spritesheet_yoffset;
-	logic chef, sausage;
-	logic enemy_hurt;
+	logic chef, sausage, egg;
+	logic enemy_hurt, enemy1_hurt;
 	logic [16:0] ingredient_fall, ingredient1_falling, ingredient2_falling;
 
 //instantiate a vga_controller, ball, and color_mapper here with the ports.
@@ -211,20 +212,32 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.ChefY(chef_ycoord), 
 		.walk(|ladder_color_index_bottom), 
 		.climb(&ladder_color_index_top),
-		.enemy_hurt(enemy_hurt)
+		.enemy_hurt({enemy_hurt, enemy1_hurt}),
+		.lives(lives)
 	);
 	
-	enemy sausage_enemy (
+	enemy #(.Enemy_X_Center(288), .Enemy_Y_Center(72)) sausage_enemy (
 		.Reset(Reset_h), 
 		.frame_clk(VGA_VS), 
 		.walk(|ladder_color_index_bottom_enemy),
 		.climb(&ladder_color_index_top_enemy),
 		.ChefX(chef_xcoord), 
 		.ChefY(chef_ycoord), 
-		.keycode(), 
 		.enemy_hurt(enemy_hurt),
 		.EnemyX(enemy_xcoord),
 		.EnemyY(enemy_ycoord)
+	);
+	
+	enemy #(.Enemy_X_Center(0), .Enemy_Y_Center(232), .Enemy_X_Step(2), .Enemy_Y_Step(0)) egg_enemy (
+		.Reset(Reset_h), 
+		.frame_clk(VGA_VS), 
+		.walk(|ladder_color_index_bottom_enemy1),
+		.climb(&ladder_color_index_top_enemy1),
+		.ChefX(chef_xcoord), 
+		.ChefY(chef_ycoord), 
+		.enemy_hurt(enemy1_hurt),
+		.EnemyX(enemy1_xcoord),
+		.EnemyY(enemy1_ycoord)
 	);
 	
 	ingredient #(.Burger_X_Start(32), .Burger_Y_Start(94), .Burger_Y_End(350)) burger1TopBun (
@@ -464,6 +477,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.spritesheet_yoffset(spritesheet_yoffset),
 		.chef(chef), 
 		.sprite_color_index(sprite_color_index), 
+		.lives(lives),
 		.*
 	);
 	
@@ -499,6 +513,19 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.wren_b(1'b0), 
 		.q_a(ladder_color_index_top_enemy), 
 		.q_b(ladder_color_index_bottom_enemy)
+	);
+	
+	// ['0x000000', '0x0000FF'] = [background, floor/ladders]
+	ladder_ram ladders_enemy1 (
+		.address_a(enemy1_ycoord * 208 + (enemy1_xcoord + 8)), 
+		.address_b((enemy1_ycoord + 16) * 208 + (enemy1_xcoord + 8)), 
+		.clock(MAX10_CLK1_50), 
+		.data_a(), 
+		.data_b(), 
+		.wren_a(1'b0), 
+		.wren_b(1'b0), 
+		.q_a(ladder_color_index_top_enemy1), 
+		.q_b(ladder_color_index_bottom_enemy1)
 	);
 	
 	// ladder_rom enemy_ladders (

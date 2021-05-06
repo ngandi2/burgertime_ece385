@@ -1,7 +1,6 @@
 module enemy (
     input Reset, frame_clk, walk, climb, 
 	 input [9:0] ChefX, ChefY,
-    input [7:0] keycode, 
 	 output enemy_hurt,
     output [9:0] EnemyX, EnemyY
 );
@@ -10,7 +9,7 @@ module enemy (
     logic [9:0] Enemy_X_Pos, Enemy_X_Motion, Enemy_Y_Pos, Enemy_Y_Motion, Enemy_Size;
   
     parameter [9:0] Enemy_X_Center = 384;  // Center position on the X axis
-    parameter [9:0] Enemy_Y_Center = 10;   // Center position on the Y axis
+    parameter [9:0] Enemy_Y_Center = 72;   // Center position on the Y axis
     parameter [9:0] Enemy_X_Min = 0;       // Leftmost point on the X axis
     parameter [9:0] Enemy_X_Max = 384;     // Rightmost point on the X axis
     parameter [9:0] Enemy_Y_Min = 10;      // Topmost point on the Y axis
@@ -46,7 +45,7 @@ module enemy (
         begin 
 				if (climb && (Enemy_Y_Pos >> 1) < ChefY)
 				begin
-					Enemy_Y_Motion <= 1; // S
+					Enemy_Y_Motion <= Enemy_Y_Step; // S
 					Enemy_X_Motion <= 0;
 					if ( (Enemy_Y_Pos + Enemy_Y_Motion) >= Enemy_Y_Max )  // Enemy is at the bottom edge
 						Enemy_Y_Motion <= 0; 
@@ -54,7 +53,7 @@ module enemy (
 
 				else if (climb && (Enemy_Y_Pos >> 1) > ChefY)
 				begin
-					Enemy_Y_Motion <= -1; // W
+					Enemy_Y_Motion <= 0 - Enemy_Y_Step; // W
 					Enemy_X_Motion <= 0;
 					if ( (Enemy_Y_Pos + Enemy_Y_Motion) <= Enemy_Y_Min )  // Enemy is at the top edge
 						Enemy_Y_Motion <= 0;
@@ -62,7 +61,7 @@ module enemy (
 				
 				else if (walk && (Enemy_X_Pos >> 1) > ChefX)
 				begin
-					Enemy_X_Motion <= -1; // A
+					Enemy_X_Motion <= 0 - Enemy_X_Step; // A
 					Enemy_Y_Motion <= 0;
 					if ( (Enemy_X_Pos + Enemy_X_Motion) <= Enemy_X_Min )  // Enemy is at the left edge
 						Enemy_X_Motion <= 0;
@@ -70,7 +69,7 @@ module enemy (
 
 				else if (walk && (Enemy_X_Pos >> 1) < ChefX)
 				begin
-					Enemy_X_Motion <= 1; // D
+					Enemy_X_Motion <= Enemy_X_Step; // D
 					Enemy_Y_Motion <= 0;
 					if ( (Enemy_X_Pos + Enemy_X_Motion) >= Enemy_X_Max )  // Enemy is at the right edge
 						Enemy_X_Motion <= 0; 
@@ -86,7 +85,7 @@ module enemy (
 				 
 				if (!climb && !walk)
 				begin
-					 Enemy_Y_Motion <= 1;
+					 Enemy_Y_Motion <= Enemy_Y_Step;
 					 Enemy_X_Motion <= 0;
 				end
 				 

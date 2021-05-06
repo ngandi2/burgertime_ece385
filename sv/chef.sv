@@ -1,9 +1,11 @@
 module chef (
-    input Reset, frame_clk, walk, climb, enemy_hurt,
+    input Reset, frame_clk, walk, climb,
+	 input [1:0] enemy_hurt,
     input [7:0] keycode, 
-    output [9:0] ChefX, ChefY
+    output [9:0] ChefX, ChefY,
+	 output [1:0] lives
 );
-    
+    logic [2:0] lives_remaining;
     logic [9:0] Chef_X_Pos, Chef_X_Motion, Chef_Y_Pos, Chef_Y_Motion, Chef_Size;
   
     parameter [9:0] Chef_X_Center = 192;   // Center position on the X axis
@@ -25,6 +27,7 @@ module chef (
 				Chef_X_Motion <= 10'd0;
 				Chef_Y_Pos <= Chef_Y_Center;
 				Chef_X_Pos <= Chef_X_Center;
+				lives_remaining <= 2'd3;
         end
 		  
 		  else if (enemy_hurt)
@@ -33,9 +36,11 @@ module chef (
 				Chef_X_Motion <= 10'd0;
 				Chef_Y_Pos <= Chef_Y_Center;
 				Chef_X_Pos <= Chef_X_Center;
+				if (lives_remaining != 0)
+					lives_remaining <= lives_remaining - 1;
         end
            
-        else 
+        else if (lives_remaining > 0)
         begin 
 				 case (keycode)
 					8'h04 : begin
@@ -100,5 +105,6 @@ module chef (
 
     assign ChefX = Chef_X_Pos >> 1;
     assign ChefY = Chef_Y_Pos >> 1;
+	 assign lives = lives_remaining;
 
 endmodule
