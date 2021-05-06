@@ -211,7 +211,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.climb(&ladder_color_index_top)
 	);
 	
-	ingredient #(.Burger_X_Start(32), .Burger_Y_Start(92), .Burger_Y_End(350)) burger1TopBun (
+	ingredient #(.Burger_X_Start(32), .Burger_Y_Start(94), .Burger_Y_End(350)) burger1TopBun (
 		.Reset(Reset_h), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
@@ -224,7 +224,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.falling(ingredient_fall[15])
 	);
 
-	ingredient #(.Burger_X_Start(32), .Burger_Y_Start(156), .Burger_Y_End(366)) burger1Lettuce (
+	ingredient #(.Burger_X_Start(32), .Burger_Y_Start(158), .Burger_Y_End(366)) burger1Lettuce (
 		.Reset(Reset_h), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
@@ -237,7 +237,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.falling(ingredient_fall[14])
 	);
 
-	ingredient #(.Burger_X_Start(32), .Burger_Y_Start(252), .Burger_Y_End(382)) burger1Patty (
+	ingredient #(.Burger_X_Start(32), .Burger_Y_Start(254), .Burger_Y_End(382)) burger1Patty (
 		.Reset(Reset_h), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
@@ -250,7 +250,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.falling(ingredient_fall[13])
 	);
 
-	ingredient #(.Burger_X_Start(32), .Burger_Y_Start(316), .Burger_Y_End(398)) burger1BotBun (
+	ingredient #(.Burger_X_Start(32), .Burger_Y_Start(318), .Burger_Y_End(398)) burger1BotBun (
 		.Reset(Reset_h), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
@@ -263,7 +263,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.falling(ingredient_fall[12])
 	);
 
-	ingredient #(.Burger_X_Start(128), .Burger_Y_Start(28), .Burger_Y_End(350)) burger2TopBun (
+	ingredient #(.Burger_X_Start(128), .Burger_Y_Start(30), .Burger_Y_End(350)) burger2TopBun (
 		.Reset(Reset_h), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
@@ -276,7 +276,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.falling(ingredient_fall[11])
 	);
 
-	ingredient #(.Burger_X_Start(128), .Burger_Y_Start(188), .Burger_Y_End(366)) burger2Lettuce (
+	ingredient #(.Burger_X_Start(128), .Burger_Y_Start(190), .Burger_Y_End(366)) burger2Lettuce (
 		.Reset(Reset_h), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
@@ -289,7 +289,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.falling(ingredient_fall[10])
 	);
 
-	ingredient #(.Burger_X_Start(128), .Burger_Y_Start(252), .Burger_Y_End(382)) burger2Patty (
+	ingredient #(.Burger_X_Start(128), .Burger_Y_Start(254), .Burger_Y_End(382)) burger2Patty (
 		.Reset(Reset_h), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
@@ -302,7 +302,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.falling(ingredient_fall[9])
 	);
 
-	ingredient #(.Burger_X_Start(128), .Burger_Y_Start(316), .Burger_Y_End(398)) burger2BotBun (
+	ingredient #(.Burger_X_Start(128), .Burger_Y_Start(318), .Burger_Y_End(398)) burger2BotBun (
 		.Reset(Reset_h), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
@@ -315,7 +315,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.falling(ingredient_fall[8])
 	);
 
-	ingredient #(.Burger_X_Start(224), .Burger_Y_Start(28), .Burger_Y_End(350)) burger3TopBun (
+	ingredient #(.Burger_X_Start(224), .Burger_Y_Start(30), .Burger_Y_End(350)) burger3TopBun (
 		.Reset(Reset_h), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
@@ -328,7 +328,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.falling(ingredient_fall[7])
 	);
 
-	ingredient #(.Burger_X_Start(224), .Burger_Y_Start(92), .Burger_Y_End(366)) burger3Lettuce (
+	ingredient #(.Burger_X_Start(224), .Burger_Y_Start(94), .Burger_Y_End(366)) burger3Lettuce (
 		.Reset(Reset_h), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
@@ -341,7 +341,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.falling(ingredient_fall[6])
 	);
 
-	ingredient #(.Burger_X_Start(224), .Burger_Y_Start(188), .Burger_Y_End(382)) burger3Patty (
+	ingredient #(.Burger_X_Start(224), .Burger_Y_Start(190), .Burger_Y_End(382)) burger3Patty (
 		.Reset(Reset_h), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
@@ -354,7 +354,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.falling(ingredient_fall[5])
 	);
 
-	ingredient #(.Burger_X_Start(224), .Burger_Y_Start(316), .Burger_Y_End(398)) burger3BotBun (
+	ingredient #(.Burger_X_Start(224), .Burger_Y_Start(318), .Burger_Y_End(398)) burger3BotBun (
 		.Reset(Reset_h), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
@@ -367,7 +367,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.falling(ingredient_fall[4])
 	);
 
-	ingredient #(.Burger_X_Start(320), .Burger_Y_Start(28), .Burger_Y_End(350)) burger4TopBun (
+	ingredient #(.Burger_X_Start(320), .Burger_Y_Start(30), .Burger_Y_End(350)) burger4TopBun (
 		.Reset(Reset_h), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
@@ -380,7 +380,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.falling(ingredient_fall[3])
 	);
 
-	ingredient #(.Burger_X_Start(320), .Burger_Y_Start(92), .Burger_Y_End(366)) burger4Lettuce (
+	ingredient #(.Burger_X_Start(320), .Burger_Y_Start(94), .Burger_Y_End(366)) burger4Lettuce (
 		.Reset(Reset_h), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
@@ -393,7 +393,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.falling(ingredient_fall[2])
 	);
 
-	ingredient #(.Burger_X_Start(320), .Burger_Y_Start(156), .Burger_Y_End(382)) burger4Patty (
+	ingredient #(.Burger_X_Start(320), .Burger_Y_Start(158), .Burger_Y_End(382)) burger4Patty (
 		.Reset(Reset_h), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
@@ -406,7 +406,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.falling(ingredient_fall[1])
 	);
 
-	ingredient #(.Burger_X_Start(320), .Burger_Y_Start(220), .Burger_Y_End(398)) burger4BotBun (
+	ingredient #(.Burger_X_Start(320), .Burger_Y_Start(222), .Burger_Y_End(398)) burger4BotBun (
 		.Reset(Reset_h), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
