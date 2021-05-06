@@ -39,23 +39,7 @@ module enemy (
 					 touched_chef <= 1'b1;
 				end
 				
-				if (walk && (Enemy_X_Pos >> 1) > ChefX)
-				begin
-					Enemy_X_Motion <= -1; // A
-					Enemy_Y_Motion <= 0;
-					if ( (Enemy_X_Pos + Enemy_X_Motion) <= Enemy_X_Min )  // Enemy is at the left edge
-						Enemy_X_Motion <= 0;
-				end
-
-				else if (walk && (Enemy_X_Pos >> 1) < ChefX)
-				begin
-					Enemy_X_Motion <= 1; // D
-					Enemy_Y_Motion <= 0;
-					if ( (Enemy_X_Pos + Enemy_X_Motion) >= Enemy_X_Max )  // Enemy is at the right edge
-						Enemy_X_Motion <= 0; 
-				end
-							  
-				else if (climb && (Enemy_Y_Pos >> 1) < ChefY)
+				if (climb && (Enemy_Y_Pos >> 1) < ChefY)
 				begin
 					Enemy_Y_Motion <= 1; // S
 					Enemy_X_Motion <= 0;
@@ -70,11 +54,29 @@ module enemy (
 					if ( (Enemy_Y_Pos + Enemy_Y_Motion) <= Enemy_Y_Min )  // Enemy is at the top edge
 						Enemy_Y_Motion <= 0;
 				end
+				
+				else if (walk && (Enemy_X_Pos >> 1) > ChefX)
+				begin
+					Enemy_X_Motion <= -1; // A
+					Enemy_Y_Motion <= 0;
+					if ( (Enemy_X_Pos + Enemy_X_Motion) <= Enemy_X_Min )  // Enemy is at the left edge
+						Enemy_X_Motion <= 0;
+				end
+
+				else if (walk && (Enemy_X_Pos >> 1) < ChefX)
+				begin
+					Enemy_X_Motion <= 1; // D
+					Enemy_Y_Motion <= 0;
+					if ( (Enemy_X_Pos + Enemy_X_Motion) >= Enemy_X_Max )  // Enemy is at the right edge
+						Enemy_X_Motion <= 0; 
+				end
 
 				else
 				begin
-					Enemy_Y_Motion <= 0;
-					Enemy_X_Motion <= 0;
+					if (Enemy_X_Pos > (Enemy_X_Center >> 1))
+						Enemy_X_Motion <= -1;
+					else
+						Enemy_X_Motion <= 1;
 				end
 				 
 				if (!climb && !walk)
