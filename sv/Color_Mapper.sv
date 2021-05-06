@@ -15,7 +15,7 @@
 
 module  color_mapper (
     input [9:0] DrawX, DrawY, 
-    input logic chef, 
+    input logic chef, sausage,
     input logic blank, 
     input logic [1:0] stage_color_index, 
     input logic [2:0] sprite_color_index, 
