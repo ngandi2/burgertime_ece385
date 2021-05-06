@@ -168,6 +168,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	logic [9:0] burger4_topX, burger4_topY, burger4_LtopX, burger4_LtopY, burger4_PtopX, burger4_PtopY, burger4_BBtopX, burger4_BBtopY;
 	logic [9:0] spritesheet_x, spritesheet_y, spritesheet_xoffset, spritesheet_yoffset;
 	logic chef, sausage;
+	logic enemy_hurt;
 	logic [16:0] ingredient_fall, ingredient1_falling, ingredient2_falling;
 
 //instantiate a vga_controller, ball, and color_mapper here with the ports.
@@ -209,7 +210,8 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.ChefX(chef_xcoord), 
 		.ChefY(chef_ycoord), 
 		.walk(|ladder_color_index_bottom), 
-		.climb(&ladder_color_index_top)
+		.climb(&ladder_color_index_top),
+		.enemy_hurt(enemy_hurt)
 	);
 	
 	enemy sausage_enemy (
@@ -220,7 +222,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.ChefX(chef_xcoord), 
 		.ChefY(chef_ycoord), 
 		.keycode(), 
-		.enemy_hurt(),
+		.enemy_hurt(enemy_hurt),
 		.EnemyX(enemy_xcoord),
 		.EnemyY(enemy_ycoord)
 	);

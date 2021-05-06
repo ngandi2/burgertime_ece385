@@ -32,9 +32,19 @@ module enemy (
 				counter <= 1'b0;
         end
            
+		  else if (touched_chef)
+		  begin
+				Enemy_Y_Motion <= 10'd0; 
+				Enemy_X_Motion <= 10'd0;
+				Enemy_Y_Pos <= Enemy_Y_Center;
+				Enemy_X_Pos <= Enemy_X_Center;
+				touched_chef <= 1'b0;
+				counter <= 1'b0;
+		  end
+		  
         else if (counter)
         begin 
-				if (((ChefX << 1 == Enemy_X_Pos) || (ChefX << 1 == Enemy_X_Pos + 16)) && ((ChefY << 1 == Enemy_Y_Pos) || (ChefY << 1 == Enemy_X_Pos + 16)))
+				if (((ChefX << 1 == Enemy_X_Pos) || (ChefX << 1 == Enemy_X_Pos + 16)) && ((ChefY << 1 == Enemy_Y_Pos) || (ChefY << 1 == Enemy_Y_Pos + 16)))
 				begin
 					 touched_chef <= 1'b1;
 				end

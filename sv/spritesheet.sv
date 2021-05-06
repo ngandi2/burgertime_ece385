@@ -1,4 +1,5 @@
 module spritesheet (
+	 input enemy_hurt,
 	 input [2:0] sprite_color_index,
     input [9:0] drawxsig, drawysig, chef_xcoord, chef_ycoord, enemy_xcoord, enemy_ycoord,
 		input [9:0] burger1_topX, burger1_topY, burger1_LtopX, burger1_LtopY, burger1_PtopX, burger1_PtopY, burger1_BBtopX, burger1_BBtopY, 
@@ -68,6 +69,11 @@ module spritesheet (
 		begin
 			spritesheet_x = 10'd16;
          spritesheet_y = 10'd0;
+			if (enemy_hurt)
+			begin
+			spritesheet_x = 10'd64;
+			spritesheet_y = 10'd16;
+			end
 			spritesheet_xoffset = xcoord - chef_xcoord;
 			spritesheet_yoffset = ycoord - chef_ycoord;
 			chef = 1'b1;

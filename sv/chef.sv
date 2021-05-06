@@ -1,5 +1,5 @@
 module chef (
-    input Reset, frame_clk, walk, climb, 
+    input Reset, frame_clk, walk, climb, enemy_hurt,
     input [7:0] keycode, 
     output [9:0] ChefX, ChefY
 );
@@ -21,6 +21,14 @@ module chef (
     begin: Move_Chef
         if (Reset)  // Asynchronous Reset
         begin 
+            Chef_Y_Motion <= 10'd0; 
+				Chef_X_Motion <= 10'd0;
+				Chef_Y_Pos <= Chef_Y_Center;
+				Chef_X_Pos <= Chef_X_Center;
+        end
+		  
+		  else if (enemy_hurt)
+		  begin 
             Chef_Y_Motion <= 10'd0; 
 				Chef_X_Motion <= 10'd0;
 				Chef_Y_Pos <= Chef_Y_Center;
