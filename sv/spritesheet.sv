@@ -1,11 +1,11 @@
 module spritesheet (
 	 input [1:0] lives,
-	 input [2:0] sprite_color_index,
+	 input [2:0] sprite_color_index, burgers,
     input [9:0] drawxsig, drawysig, chef_xcoord, chef_ycoord, enemy_xcoord, enemy_ycoord, enemy1_xcoord, enemy1_ycoord,
-		input [9:0] burger1_topX, burger1_topY, burger1_LtopX, burger1_LtopY, burger1_PtopX, burger1_PtopY, burger1_BBtopX, burger1_BBtopY, 
-		input [9:0] burger2_topX, burger2_topY, burger2_LtopX, burger2_LtopY, burger2_PtopX, burger2_PtopY, burger2_BBtopX, burger2_BBtopY, 
-		input [9:0] burger3_topX, burger3_topY, burger3_LtopX, burger3_LtopY, burger3_PtopX, burger3_PtopY, burger3_BBtopX, burger3_BBtopY, 
-		input [9:0] burger4_topX, burger4_topY, burger4_LtopX, burger4_LtopY, burger4_PtopX, burger4_PtopY, burger4_BBtopX, burger4_BBtopY, 
+	 input [9:0] burger1_topX, burger1_topY, burger1_LtopX, burger1_LtopY, burger1_PtopX, burger1_PtopY, burger1_BBtopX, burger1_BBtopY, 
+	 input [9:0] burger2_topX, burger2_topY, burger2_LtopX, burger2_LtopY, burger2_PtopX, burger2_PtopY, burger2_BBtopX, burger2_BBtopY, 
+	 input [9:0] burger3_topX, burger3_topY, burger3_LtopX, burger3_LtopY, burger3_PtopX, burger3_PtopY, burger3_BBtopX, burger3_BBtopY, 
+	 input [9:0] burger4_topX, burger4_topY, burger4_LtopX, burger4_LtopY, burger4_PtopX, burger4_PtopY, burger4_BBtopX, burger4_BBtopY, 
     output [9:0] xcoord, ycoord, spritesheet_x, spritesheet_y, spritesheet_xoffset, spritesheet_yoffset,
 	 output chef, sausage, egg
 );
@@ -66,17 +66,49 @@ module spritesheet (
 		sausage = 1'b0;
 		egg = 1'b0;
 		
-		// doesn't work yet, supposed to print lives on top right tho
 		/*for (i = 0; i < lives; i++)
 		begin
-		if (xcoord >= 200 + (8 * i) && xcoord < 200 + (8 * i) + 8 && ycoord >= 0 && ycoord < 0 + 8)
-		begin
-			spritesheet_x = 10'd200;
-         spritesheet_y = 10'd0;
-			spritesheet_xoffset = xcoord - chef_xcoord;
-			spritesheet_yoffset = ycoord - chef_ycoord;
+			if (xcoord >= 2 + (8 * i) && xcoord < 2 + (8 * i) + 8 && ycoord >= 207 && ycoord < 207 + 8)
+			begin
+				spritesheet_x = 10'd200;
+				spritesheet_y = 10'd0;
+				spritesheet_xoffset = xcoord - (2 + (8 * i));
+				spritesheet_yoffset = ycoord - 207;
+			end
 		end
+		
+		for (i = 0; i < burgers; i++)
+		begin
+			if (xcoord >= 176 + (8 * i) && xcoord < 176 + (8 * i) + 8 && ycoord >= 207 && ycoord < 207 + 8)
+			begin
+				spritesheet_x = 10'd208;
+				spritesheet_y = 10'd0;
+				spritesheet_xoffset = xcoord - (176 + (8 * i));
+				spritesheet_yoffset = ycoord - 207;
+			end
 		end*/
+		
+		for (i = 0; i < lives; i++)
+		begin
+			if (xcoord >= 2 && xcoord < 2 + 8 && ycoord >= 205 - (9 * i) && ycoord < 205 - (9 * i) + 9)
+			begin
+				spritesheet_x = 10'd200;
+				spritesheet_y = 10'd0;
+				spritesheet_xoffset = xcoord - 2;
+				spritesheet_yoffset = ycoord - (205 - (9 * i));
+			end
+		end
+		
+		for (i = 0; i < burgers; i++)
+		begin
+			if (xcoord >= 198 && xcoord < 198 + 8 && ycoord >= 205- (8 * i) && ycoord < 205 - (8 * i) + 8)
+			begin
+				spritesheet_x = 10'd208;
+				spritesheet_y = 10'd0;
+				spritesheet_xoffset = xcoord - 198;
+				spritesheet_yoffset = ycoord - (205 - (8 * i));
+			end
+		end
 		
 		if (xcoord >= chef_xcoord && xcoord < chef_xcoord + 16 && ycoord >= chef_ycoord && ycoord < chef_ycoord + 16)
 		begin
