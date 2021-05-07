@@ -160,7 +160,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 
 	logic ingredient1_bottom_color, ingredient2_bottom_color, ladder_color_index_top, ladder_color_index_bottom, ladder_color_index_top_enemy, ladder_color_index_bottom_enemy, ladder_color_index_top_enemy1, ladder_color_index_bottom_enemy1;
 	logic [1:0] stage_color_index;
-	logic [2:0] sprite_color_index;
+	logic [2:0] sprite_color_index, burgers;
 	logic [1:0] lives;
 	logic [9:0] xcoord, ycoord, chef_xcoord, chef_ycoord, enemy_xcoord, enemy_ycoord, enemy1_xcoord, enemy1_ycoord, ingredient1_ycoord, ingredient1_xcoord, ingredient2_ycoord, ingredient2_xcoord;
 	logic [9:0] burger1_topX, burger1_topY, burger1_LtopX, burger1_LtopY, burger1_PtopX, burger1_PtopY, burger1_BBtopX, burger1_BBtopY;
@@ -170,6 +170,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	logic [9:0] spritesheet_x, spritesheet_y, spritesheet_xoffset, spritesheet_yoffset;
 	logic chef, sausage, egg;
 	logic enemy_hurt, enemy1_hurt;
+	logic burger1_done, burger2_done, burger3_done, burger4_done;
 	logic [16:0] ingredient_fall, ingredient1_falling, ingredient2_falling;
 
 //instantiate a vga_controller, ball, and color_mapper here with the ports.
@@ -216,7 +217,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.lives(lives)
 	);
 	
-	enemy #(.Enemy_X_Center(288), .Enemy_Y_Center(72)) sausage_enemy (
+	enemy #(.Enemy_X_Center(288), .Enemy_Y_Center(72), .Enemy_Y_Min(72)) sausage_enemy (
 		.Reset(Reset_h), 
 		.frame_clk(VGA_VS), 
 		.walk(|ladder_color_index_bottom_enemy),
@@ -250,7 +251,8 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.fall((~ingredient1_bottom_color & ingredient1_falling[15]) | (~ingredient2_bottom_color & ingredient2_falling[15])), 
 		.BurgerX(burger1_topX), 
 		.BurgerY(burger1_topY), 
-		.falling(ingredient_fall[15])
+		.falling(ingredient_fall[15]),
+		.finish(burger1_done)
 	);
 
 	ingredient #(.Burger_X_Start(32), .Burger_Y_Start(158), .Burger_Y_End(366)) burger1Lettuce (
@@ -302,7 +304,8 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.fall((~ingredient1_bottom_color & ingredient1_falling[11]) | (~ingredient2_bottom_color & ingredient2_falling[11])), 
 		.BurgerX(burger2_topX), 
 		.BurgerY(burger2_topY), 
-		.falling(ingredient_fall[11])
+		.falling(ingredient_fall[11]),
+		.finish(burger2_done)
 	);
 
 	ingredient #(.Burger_X_Start(128), .Burger_Y_Start(190), .Burger_Y_End(366)) burger2Lettuce (
@@ -354,7 +357,8 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.fall((~ingredient1_bottom_color & ingredient1_falling[7]) | (~ingredient2_bottom_color & ingredient2_falling[7])), 
 		.BurgerX(burger3_topX), 
 		.BurgerY(burger3_topY), 
-		.falling(ingredient_fall[7])
+		.falling(ingredient_fall[7]),
+		.finish(burger3_done)
 	);
 
 	ingredient #(.Burger_X_Start(224), .Burger_Y_Start(94), .Burger_Y_End(366)) burger3Lettuce (
@@ -406,7 +410,8 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.fall((~ingredient1_bottom_color & ingredient1_falling[3]) | (~ingredient2_bottom_color & ingredient2_falling[3])), 
 		.BurgerX(burger4_topX), 
 		.BurgerY(burger4_topY), 
-		.falling(ingredient_fall[3])
+		.falling(ingredient_fall[3]),
+		.finish(burger4_done)
 	);
 
 	ingredient #(.Burger_X_Start(320), .Burger_Y_Start(94), .Burger_Y_End(366)) burger4Lettuce (
@@ -572,5 +577,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.clock(MAX10_CLK1_50), 
 		.q(sprite_color_index)
 	);
+	
+	assign burgers = burger1_done + burger2_done + burger3_done + burger4_done;
 
 endmodule
