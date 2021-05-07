@@ -216,7 +216,13 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.sprite_color_index(sprite_color_index), 
 		.Red(Red), 
 		.Green(Green), 
-		.Blue(Blue)
+		.Blue(Blue), 
+		.title_pixel(title_pixel), 
+		.win_pixel(win_pixel), 
+		.lose_pixel(lose_pixel), 
+		.game_start(game_start), 
+		.game_win(game_win), 
+		.game_lose(game_lose)
 	);
 
 	// state machine will determine these later on
@@ -226,7 +232,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	// assign chef_ycoord = 0;
 	
 	chef chef_module (
-		.Reset(Reset_h), 
+		.Reset(Reset_h | ~game_start), 
 		.frame_clk(VGA_VS), 
 		.keycode(keycode), 
 		.ChefX(chef_xcoord), 
@@ -238,7 +244,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	);
 	
 	enemy #(.Enemy_X_Center(288), .Enemy_Y_Center(72), .Enemy_Y_Min(72)) sausage_enemy (
-		.Reset(Reset_h), 
+		.Reset(Reset_h | ~game_start), 
 		.frame_clk(VGA_VS), 
 		.walk(|ladder_color_index_bottom_enemy),
 		.climb(&ladder_color_index_top_enemy),
@@ -250,7 +256,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	);
 	
 	enemy #(.Enemy_X_Center(0), .Enemy_Y_Center(232), .Enemy_X_Step(2), .Enemy_Y_Step(0)) egg_enemy (
-		.Reset(Reset_h), 
+		.Reset(Reset_h | ~game_start), 
 		.frame_clk(VGA_VS), 
 		.walk(|ladder_color_index_bottom_enemy1),
 		.climb(&ladder_color_index_top_enemy1),
@@ -262,7 +268,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	);
 	
 	ingredient #(.Burger_X_Start(32), .Burger_Y_Start(94), .Burger_Y_End(350)) burger1TopBun (
-		.Reset(Reset_h), 
+		.Reset(Reset_h | ~game_start), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
 		.ChefY(chef_ycoord), 
@@ -276,7 +282,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	);
 
 	ingredient #(.Burger_X_Start(32), .Burger_Y_Start(158), .Burger_Y_End(366)) burger1Lettuce (
-		.Reset(Reset_h), 
+		.Reset(Reset_h | ~game_start), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
 		.ChefY(chef_ycoord), 
@@ -290,7 +296,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	);
 
 	ingredient #(.Burger_X_Start(32), .Burger_Y_Start(254), .Burger_Y_End(382)) burger1Patty (
-		.Reset(Reset_h), 
+		.Reset(Reset_h | ~game_start), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
 		.ChefY(chef_ycoord), 
@@ -304,7 +310,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	);
 
 	ingredient #(.Burger_X_Start(32), .Burger_Y_Start(318), .Burger_Y_End(398)) burger1BotBun (
-		.Reset(Reset_h), 
+		.Reset(Reset_h | ~game_start), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
 		.ChefY(chef_ycoord), 
@@ -318,7 +324,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	);
 
 	ingredient #(.Burger_X_Start(128), .Burger_Y_Start(30), .Burger_Y_End(350)) burger2TopBun (
-		.Reset(Reset_h), 
+		.Reset(Reset_h | ~game_start), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
 		.ChefY(chef_ycoord), 
@@ -332,7 +338,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	);
 
 	ingredient #(.Burger_X_Start(128), .Burger_Y_Start(190), .Burger_Y_End(366)) burger2Lettuce (
-		.Reset(Reset_h), 
+		.Reset(Reset_h | ~game_start), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
 		.ChefY(chef_ycoord), 
@@ -346,7 +352,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	);
 
 	ingredient #(.Burger_X_Start(128), .Burger_Y_Start(254), .Burger_Y_End(382)) burger2Patty (
-		.Reset(Reset_h), 
+		.Reset(Reset_h | ~game_start), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
 		.ChefY(chef_ycoord), 
@@ -360,7 +366,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	);
 
 	ingredient #(.Burger_X_Start(128), .Burger_Y_Start(318), .Burger_Y_End(398)) burger2BotBun (
-		.Reset(Reset_h), 
+		.Reset(Reset_h | ~game_start), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
 		.ChefY(chef_ycoord), 
@@ -374,7 +380,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	);
 
 	ingredient #(.Burger_X_Start(224), .Burger_Y_Start(30), .Burger_Y_End(350)) burger3TopBun (
-		.Reset(Reset_h), 
+		.Reset(Reset_h | ~game_start), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
 		.ChefY(chef_ycoord), 
@@ -388,7 +394,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	);
 
 	ingredient #(.Burger_X_Start(224), .Burger_Y_Start(94), .Burger_Y_End(366)) burger3Lettuce (
-		.Reset(Reset_h), 
+		.Reset(Reset_h | ~game_start), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
 		.ChefY(chef_ycoord), 
@@ -402,7 +408,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	);
 
 	ingredient #(.Burger_X_Start(224), .Burger_Y_Start(190), .Burger_Y_End(382)) burger3Patty (
-		.Reset(Reset_h), 
+		.Reset(Reset_h | ~game_start), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
 		.ChefY(chef_ycoord), 
@@ -416,7 +422,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	);
 
 	ingredient #(.Burger_X_Start(224), .Burger_Y_Start(318), .Burger_Y_End(398)) burger3BotBun (
-		.Reset(Reset_h), 
+		.Reset(Reset_h | ~game_start), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
 		.ChefY(chef_ycoord), 
@@ -430,7 +436,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	);
 
 	ingredient #(.Burger_X_Start(320), .Burger_Y_Start(30), .Burger_Y_End(350)) burger4TopBun (
-		.Reset(Reset_h), 
+		.Reset(Reset_h | ~game_start), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
 		.ChefY(chef_ycoord), 
@@ -444,7 +450,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	);
 
 	ingredient #(.Burger_X_Start(320), .Burger_Y_Start(94), .Burger_Y_End(366)) burger4Lettuce (
-		.Reset(Reset_h), 
+		.Reset(Reset_h | ~game_start), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
 		.ChefY(chef_ycoord), 
@@ -458,7 +464,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	);
 
 	ingredient #(.Burger_X_Start(320), .Burger_Y_Start(158), .Burger_Y_End(382)) burger4Patty (
-		.Reset(Reset_h), 
+		.Reset(Reset_h | ~game_start), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
 		.ChefY(chef_ycoord), 
@@ -472,7 +478,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	);
 
 	ingredient #(.Burger_X_Start(320), .Burger_Y_Start(222), .Burger_Y_End(398)) burger4BotBun (
-		.Reset(Reset_h), 
+		.Reset(Reset_h | ~game_start), 
 		.frame_clk(VGA_VS), 
 		.ChefX(chef_xcoord), 
 		.ChefY(chef_ycoord), 
@@ -488,7 +494,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	// the ingredient coordinates should be defined by a mux or something later
 	fall_ram_logic ingredient_fall_ram_logic (
 		.clock(VGA_VS), 
-		.Reset(Reset_h), 
+		.Reset(Reset_h | ~game_start), 
 		.ingredient_fall(ingredient_fall), 
 		.ingredient1_falling(ingredient1_falling), 
 		.ingredient2_falling(ingredient2_falling), 
@@ -618,6 +624,30 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.clock(MAX10_CLK1_50), 
 		.q(sprite_color_index), 
 		.rden(game_start)
+	);
+
+	logic [1:0] title_pixel;
+	logic win_pixel, lose_pixel;
+
+	title_ram title (
+		.address(ycoord * 208 + xcoord), 
+		.clock(MAX10_CLK1_50), 
+		.rden(~game_start & ~game_win & ~game_lose), 
+		.q(title_pixel)
+	);
+
+	win_ram win (
+		.address(ycoord * 208 + xcoord), 
+		.clock(MAX10_CLK1_50), 
+		.rden(game_win), 
+		.q(win_pixel)
+	);
+
+	lose_ram lose (
+		.address(ycoord * 208 + xcoord), 
+		.clock(MAX10_CLK1_50), 
+		.rden(game_lose), 
+		.q(lose_pixel)
 	);
 	
 	assign burgers = burger1_top_finish + burger2_top_finish + burger3_top_finish + burger4_top_finish;

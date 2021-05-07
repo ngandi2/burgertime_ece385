@@ -31,7 +31,7 @@ module game_control (
     game_lose = 1'b0;
     unique case (state)
       Start:
-        if (|keycode)
+        if (keycode == 8'd44)
           next_state = Play;
       Play:
       begin

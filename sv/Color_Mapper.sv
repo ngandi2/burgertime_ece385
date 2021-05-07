@@ -19,6 +19,8 @@ module  color_mapper (
     input logic blank, 
     input logic [1:0] stage_color_index, 
     input logic [2:0] sprite_color_index, 
+    input logic [1:0] title_pixel, 
+    input logic win_pixel, lose_pixel, game_start, game_win, game_lose, 
     output logic [7:0] Red, Green, Blue 
 );
     // 208 x 200
@@ -27,7 +29,118 @@ module  color_mapper (
     begin
         if (blank)
         begin
-            case (stage_color_index)
+            if (game_start)
+            begin
+                case (stage_color_index)
+                    2'b00:
+                    begin
+                        Red = 8'h00;
+                        Green = 8'h00;
+                        Blue = 8'h00;
+                    end
+                    2'b01:
+                    begin
+                        Red = 8'hFF;
+                        Green = 8'hFF;
+                        Blue = 8'hFF;
+                    end
+                    2'b10:
+                    begin
+                        Red = 8'h00;
+                        Green = 8'h00;
+                        Blue = 8'hFF;
+                    end
+                    2'b11:
+                    begin
+                        Red = 8'hB6;
+                        Green = 8'hB6;
+                        Blue = 8'hAA;
+                    end
+                    default:
+                    begin
+                        Red = 8'h00;
+                        Green = 8'h00;
+                        Blue = 8'h00;
+                    end
+                endcase
+                case (sprite_color_index)
+                    3'b001: 
+                    begin
+                        Red = 8'hFF;
+                        Green = 8'h00;
+                        Blue = 8'h00;
+                    end
+                    3'b010: 
+                    begin
+                        Red = 8'hFF;
+                        Green = 8'hFF;
+                        Blue = 8'hFF;
+                    end
+                    3'b011: 
+                    begin
+                        Red = 8'h6D;
+                        Green = 8'h6D;
+                        Blue = 8'h6D;
+                    end
+                    3'b100: 
+                    begin
+                        Red = 8'hFF;
+                        Green = 8'hFF;
+                        Blue = 8'h00;
+                    end
+                    3'b101: 
+                    begin
+                        Red = 8'h00;
+                        Green = 8'hFF;
+                        Blue = 8'h00;
+                    end
+                    3'b110: 
+                    begin
+                        Red = 8'hFF;
+                        Green = 8'hB6;
+                        Blue = 8'h00;
+                    end
+                    3'b111: 
+                    begin
+                        Red = 8'h6D;
+                        Green = 8'hB6;
+                        Blue = 8'h00;
+                    end
+                endcase
+            end
+            else if (game_win)
+            begin
+                case (win_pixel)
+                1'b0: begin
+                    Red = 8'h00;
+                    Green = 8'h00;
+                    Blue = 8'h00;
+                end
+                1'b1: begin
+                    Red = 8'hFF;
+                    Green = 8'hFF;
+                    Blue = 8'hFF;
+                end
+                endcase
+            end
+            else if (game_lose)
+            begin
+                case (lose_pixel)
+                1'b0: begin
+                    Red = 8'h00;
+                    Green = 8'h00;
+                    Blue = 8'h00;
+                end
+                1'b1: begin
+                    Red = 8'hFF;
+                    Green = 8'hFF;
+                    Blue = 8'hFF;
+                end
+                endcase
+            end
+            else
+            begin
+                case (title_pixel)
                 2'b00:
                 begin
                     Red = 8'h00;
@@ -42,15 +155,15 @@ module  color_mapper (
                 end
                 2'b10:
                 begin
-                    Red = 8'h00;
-                    Green = 8'h00;
-                    Blue = 8'hFF;
+                    Red = 8'hF6;
+                    Green = 8'hAB;
+                    Blue = 8'h1A;
                 end
                 2'b11:
                 begin
-                    Red = 8'hB6;
-                    Green = 8'hB6;
-                    Blue = 8'hAA;
+                    Red = 8'h2D;
+                    Green = 8'h38;
+                    Blue = 8'h8F;
                 end
                 default:
                 begin
@@ -58,51 +171,8 @@ module  color_mapper (
                     Green = 8'h00;
                     Blue = 8'h00;
                 end
-            endcase
-            case (sprite_color_index)
-                3'b001: 
-                begin
-                    Red = 8'hFF;
-                    Green = 8'h00;
-                    Blue = 8'h00;
-                end
-                3'b010: 
-                begin
-                    Red = 8'hFF;
-                    Green = 8'hFF;
-                    Blue = 8'hFF;
-                end
-                3'b011: 
-                begin
-                    Red = 8'h6D;
-                    Green = 8'h6D;
-                    Blue = 8'h6D;
-                end
-                3'b100: 
-                begin
-                    Red = 8'hFF;
-                    Green = 8'hFF;
-                    Blue = 8'h00;
-                end
-                3'b101: 
-                begin
-                    Red = 8'h00;
-                    Green = 8'hFF;
-                    Blue = 8'h00;
-                end
-                3'b110: 
-                begin
-                    Red = 8'hFF;
-                    Green = 8'hB6;
-                    Blue = 8'h00;
-                end
-                3'b111: 
-                begin
-                    Red = 8'h6D;
-                    Green = 8'hB6;
-                    Blue = 8'h00;
-                end
-            endcase
+                endcase
+            end
         end
         else
         begin
