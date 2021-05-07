@@ -5,7 +5,7 @@ module chef (
     output [9:0] ChefX, ChefY,
 	 output [1:0] lives
 );
-    logic [2:0] lives_remaining;
+    logic [1:0] lives_remaining;
     logic [9:0] Chef_X_Pos, Chef_X_Motion, Chef_Y_Pos, Chef_Y_Motion, Chef_Size;
   
     parameter [9:0] Chef_X_Center = 192;   // Center position on the X axis
@@ -36,11 +36,11 @@ module chef (
 				Chef_X_Motion <= 10'd0;
 				Chef_Y_Pos <= Chef_Y_Center;
 				Chef_X_Pos <= Chef_X_Center;
-				if (lives_remaining != 0)
+				if (|lives_remaining)
 					lives_remaining <= lives_remaining - 1;
         end
            
-        else if (lives_remaining > 0)
+        else if (|lives_remaining)
         begin 
 				 case (keycode)
 					8'h04 : begin
@@ -90,7 +90,7 @@ module chef (
 			   endcase
 				
 				 
-				if (!climb && !walk)
+				if (~climb & ~walk)
 				begin
 					 Chef_Y_Motion <= 1;
 					 Chef_X_Motion <= 0;

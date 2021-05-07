@@ -83,7 +83,7 @@ module enemy (
 						Enemy_X_Motion <= 1;
 				end
 				 
-				if (!climb && !walk)
+				if (~climb & ~walk)
 				begin
 					 Enemy_Y_Motion <= Enemy_Y_Step;
 					 Enemy_X_Motion <= 0;
