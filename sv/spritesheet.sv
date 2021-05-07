@@ -1,4 +1,5 @@
 module spritesheet (
+	 input pepper_icon, enemy_untouchable, enemy1_untouchable,
 	 input [1:0] lives,
 	 input [2:0] sprite_color_index, burgers,
     input [9:0] drawxsig, drawysig, chef_xcoord, chef_ycoord, enemy_xcoord, enemy_ycoord, enemy1_xcoord, enemy1_ycoord,
@@ -99,6 +100,17 @@ module spritesheet (
 			end
 		end
 		
+		if (pepper_icon)
+		begin
+		if (xcoord >= 92 && xcoord < 92 + 24 && ycoord >= 209 && ycoord < 209 + 6)
+		begin
+			spritesheet_x = 10'd216;
+			spritesheet_y = 10'd9;
+			spritesheet_xoffset = xcoord - 92;
+			spritesheet_yoffset = ycoord - 209;
+		end
+		end
+		
 		for (i = 0; i < burgers; i++)
 		begin
 			if (xcoord >= 198 && xcoord < 198 + 8 && ycoord >= 205- (8 * i) && ycoord < 205 - (8 * i) + 8)
@@ -116,8 +128,8 @@ module spritesheet (
          spritesheet_y = 10'd0;
 			if (lives == 3'd0)
 			begin
-			spritesheet_x = 10'd112;
-			spritesheet_y = 10'd16;
+				spritesheet_x = 10'd112;
+				spritesheet_y = 10'd16;
 			end
 			spritesheet_xoffset = xcoord - chef_xcoord;
 			spritesheet_yoffset = ycoord - chef_ycoord;
@@ -125,9 +137,14 @@ module spritesheet (
 		end
 		
 		if (xcoord >= enemy_xcoord && xcoord < enemy_xcoord + 16 && ycoord >= enemy_ycoord && ycoord < enemy_ycoord + 16)
-		begin
+		begin			
 			spritesheet_x = 10'd16;
          spritesheet_y = 10'd32;
+			if (enemy_untouchable)
+			begin
+				spritesheet_x = 10'd80;
+				spritesheet_y = 10'd48;
+			end
 			spritesheet_xoffset = xcoord - enemy_xcoord;
 			spritesheet_yoffset = ycoord - enemy_ycoord;
 			sausage = 1'b1;
@@ -137,6 +154,11 @@ module spritesheet (
 		begin
 			spritesheet_x = 10'd16;
          spritesheet_y = 10'd96;
+			if (enemy1_untouchable)
+			begin
+				spritesheet_x = 10'd80;
+				spritesheet_y = 10'd112;
+			end
 			spritesheet_xoffset = xcoord - enemy1_xcoord;
 			spritesheet_yoffset = ycoord - enemy1_ycoord;
 			egg = 1'b1;

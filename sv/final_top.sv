@@ -173,7 +173,8 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	logic burger4_top_finish, burger4_L_finish, burger4_P_finish, burger4_BB_finish;
 	logic [9:0] spritesheet_x, spritesheet_y, spritesheet_xoffset, spritesheet_yoffset;
 	logic chef, sausage, egg;
-	logic enemy_hurt, enemy1_hurt;
+	logic have_pepper, sausage_hit, egg_hit;
+	logic enemy_hurt, enemy1_hurt, enemy_untouchable, enemy1_untouchable;
 	logic [16:0] ingredient_fall, ingredient1_falling, ingredient2_falling;
 	logic game_start, game_win, game_lose;
 
@@ -248,9 +249,11 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.frame_clk(VGA_VS), 
 		.walk(|ladder_color_index_bottom_enemy),
 		.climb(&ladder_color_index_top_enemy),
+		.pepper_stun(sausage_hit),
 		.ChefX(chef_xcoord), 
 		.ChefY(chef_ycoord), 
 		.enemy_hurt(enemy_hurt),
+		.enemy_untouchable(enemy_untouchable),
 		.EnemyX(enemy_xcoord),
 		.EnemyY(enemy_ycoord)
 	);
@@ -260,11 +263,28 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.frame_clk(VGA_VS), 
 		.walk(|ladder_color_index_bottom_enemy1),
 		.climb(&ladder_color_index_top_enemy1),
+		.pepper_stun(egg_hit),
 		.ChefX(chef_xcoord), 
 		.ChefY(chef_ycoord), 
 		.enemy_hurt(enemy1_hurt),
+		.enemy_untouchable(enemy1_untouchable),
 		.EnemyX(enemy1_xcoord),
 		.EnemyY(enemy1_ycoord)
+	);
+	
+	pepper pepper_check (
+		.Reset(Reset_h | ~game_start), 
+		.frame_clk(VGA_VS), 
+		.keycode(keycode),
+		.ChefX(chef_xcoord),
+		.ChefY(chef_ycoord),
+		.EnemyX(enemy_xcoord),
+		.EnemyY(enemy_ycoord),
+		.Enemy1X(enemy1_xcoord),
+		.Enemy1Y(enemy1_ycoord),
+		.have_pepper(have_pepper),
+		.sausage_hit(sausage_hit),
+		.egg_hit(egg_hit)
 	);
 	
 	ingredient #(.Burger_X_Start(32), .Burger_Y_Start(94), .Burger_Y_End(350)) burger1TopBun (
@@ -521,6 +541,9 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.chef(chef), 
 		.sprite_color_index(sprite_color_index), 
 		.lives(lives),
+		.pepper_icon(have_pepper),
+		.enemy_untouchable(enemy_untouchable),
+		.enemy1_untouchable(enemy1_untouchable),
 		.*
 	);
 	

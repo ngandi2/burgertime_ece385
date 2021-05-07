@@ -1,11 +1,11 @@
 module enemy (
-    input Reset, frame_clk, walk, climb, 
+    input Reset, frame_clk, walk, climb, pepper_stun,
 	 input [9:0] ChefX, ChefY,
-	 output enemy_hurt,
+	 output enemy_hurt, enemy_untouchable,
     output [9:0] EnemyX, EnemyY
 );
     
-	 logic touched_chef, counter;
+	 logic touched_chef, counter, cannot_kill;
     logic [9:0] Enemy_X_Pos, Enemy_X_Motion, Enemy_Y_Pos, Enemy_Y_Motion, Enemy_Size;
   
     parameter [9:0] Enemy_X_Center = 384;  // Center position on the X axis
@@ -29,6 +29,7 @@ module enemy (
 				Enemy_X_Pos <= Enemy_X_Center;
 				//touched_chef <= 1'b0;
 				counter <= 1'b0;
+				
         end
            
 		  else if (touched_chef)
@@ -39,6 +40,7 @@ module enemy (
 				Enemy_X_Pos <= Enemy_X_Center;
 				//touched_chef <= 1'b0;
 				counter <= 1'b0;
+				
 		  end
 		  
         else if (counter)
@@ -89,8 +91,11 @@ module enemy (
 					 Enemy_X_Motion <= 0;
 				end
 				 
-				Enemy_Y_Pos <= (Enemy_Y_Pos + Enemy_Y_Motion);
-				Enemy_X_Pos <= (Enemy_X_Pos + Enemy_X_Motion);
+				if (~cannot_kill)
+				begin
+					 Enemy_Y_Pos <= (Enemy_Y_Pos + Enemy_Y_Motion);
+					 Enemy_X_Pos <= (Enemy_X_Pos + Enemy_X_Motion);
+				end
       
 				counter <= 1'b0;
 			
@@ -102,17 +107,27 @@ module enemy (
 	 
 	 always_comb
 	 begin
-		  if (((ChefX << 1 >= Enemy_X_Pos - 28) && (ChefX << 1 <= Enemy_X_Pos + 28)) && ((ChefY << 1 >= Enemy_Y_Pos - 28) && (ChefY << 1 <= Enemy_Y_Pos + 28)))
+		  if (pepper_stun)
+		  begin
+				cannot_kill = 1'b1;
+		  end
+		  
+		  else
+				cannot_kill = 1'b0;
+			
+		  if (((ChefX << 1 >= Enemy_X_Pos - 28) && (ChefX << 1 <= Enemy_X_Pos + 28)) && ((ChefY << 1 >= Enemy_Y_Pos - 28) && (ChefY << 1 <= Enemy_Y_Pos + 28)) && ~cannot_kill)
 		  begin
 				touched_chef = 1'b1;
 		  end
 		  
 		  else
 				touched_chef = 1'b0;
+				
 	 end
 
     assign EnemyX = Enemy_X_Pos >> 1;
     assign EnemyY = Enemy_Y_Pos >> 1;
 	 assign enemy_hurt = touched_chef;
+	 assign enemy_untouchable = cannot_kill;
 
 endmodule
