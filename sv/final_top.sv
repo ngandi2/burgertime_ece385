@@ -526,6 +526,8 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	);
 	
 	spritesheet sprite_offsets (
+		.Reset(Reset_h | ~game_start), 
+		.frame_clk(VGA_VS), 
 		.drawxsig(drawxsig), 
 		.drawysig(drawysig), 
 		.chef_xcoord(chef_xcoord), 

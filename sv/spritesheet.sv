@@ -1,4 +1,5 @@
 module spritesheet (
+	 input Reset, frame_clk,
 	 input pepper_icon, enemy_untouchable, enemy1_untouchable,
 	 input [1:0] lives,
 	 input [2:0] sprite_color_index, burgers,
@@ -49,6 +50,38 @@ module spritesheet (
 		end
 	end*/
 	integer i;
+	logic clkdiv;
+	logic [3:0] counter;
+	
+   always_ff @ (posedge frame_clk or posedge Reset )
+   begin 
+       if (Reset) 
+		 begin
+           clkdiv <= 1'b0;
+			  counter <= 4'b0000;
+		 end
+		 
+       else 
+		 begin
+			  if (&counter)
+			  begin
+					clkdiv <= ~ (clkdiv);
+					counter <= 4'b0000;
+			  end
+			  
+			  else
+					counter <= counter + 1;
+		 end
+   end
+	
+	/*always_ff @ (posedge clkdiv or posedge Reset )
+   begin 
+       if (Reset) 
+           clkdiv2 <= 1'b0;
+       else 
+           clkdiv2 <= ~ (clkdiv2);
+   end*/
+	 
 	always_comb
 	begin
 		xcoord = (drawxsig >> 1) - 56;
@@ -143,6 +176,10 @@ module spritesheet (
 			if (enemy_untouchable)
 			begin
 				spritesheet_x = 10'd80;
+				if (clkdiv)
+				begin
+					spritesheet_x = 10'd64;
+				end
 				spritesheet_y = 10'd48;
 			end
 			spritesheet_xoffset = xcoord - enemy_xcoord;
@@ -157,6 +194,10 @@ module spritesheet (
 			if (enemy1_untouchable)
 			begin
 				spritesheet_x = 10'd80;
+				if (clkdiv)
+				begin
+					spritesheet_x = 10'd64;
+				end
 				spritesheet_y = 10'd112;
 			end
 			spritesheet_xoffset = xcoord - enemy1_xcoord;
