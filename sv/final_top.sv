@@ -94,21 +94,23 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	assign ARDUINO_IO[6] = 1'b1;
 	
 	//HEX drivers to convert numbers to HEX output
-	HexDriver hex_driver4 (hex_num_4, HEX4[6:0]);
-	assign HEX4[7] = 1'b1;
+	HexDriver hex_driver4 (hex_num_4, HEX2[6:0]);
+	assign HEX2[7] = 1'b1;
 	
-	HexDriver hex_driver3 (hex_num_3, HEX3[6:0]);
-	assign HEX3[7] = 1'b1;
-	
-	HexDriver hex_driver1 (hex_num_1, HEX1[6:0]);
+	HexDriver hex_driver3 (hex_num_3, HEX1[6:0]);
 	assign HEX1[7] = 1'b1;
 	
-	HexDriver hex_driver0 (hex_num_0, HEX0[6:0]);
+	HexDriver hex_driver1 (hex_num_1, HEX0[6:0]);
 	assign HEX0[7] = 1'b1;
 	
+	// HexDriver hex_driver0 (hex_num_0, HEX3[6:0]);
+	assign HEX3 = 8'hFF;
+	assign HEX4 = 8'hFF;
+	assign HEX5 = 8'hFF;
+	
 	//fill in the hundreds digit as well as the negative sign
-	assign HEX5 = {1'b1, ~signs[1], 3'b111, ~hundreds[1], ~hundreds[1], 1'b1};
-	assign HEX2 = {1'b1, ~signs[0], 3'b111, ~hundreds[0], ~hundreds[0], 1'b1};
+	// assign HEX5 = {1'b1, ~signs[1], 3'b111, ~hundreds[1], ~hundreds[1], 1'b1};
+	// assign HEX4 = {1'b1, ~signs[0], 3'b111, ~hundreds[0], ~hundreds[0], 1'b1};
 	
 	
 	//Assign one button to reset
@@ -119,6 +121,13 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	assign VGA_B = Blue[7:4];
 	assign VGA_G = Green[7:4];
 	
+	always_comb
+	begin
+		hex_num_4 = hex_score / 100;
+		hex_num_3 = (hex_score % 100) / 10;
+		hex_num_1 = hex_score % 10;
+		// hex_num_0 = '0;
+	end
 	
 	final_soc u0 (
 	 	.clk_clk                           (MAX10_CLK1_50),  //clk.clk
@@ -152,7 +161,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	 	.usb_gpx_export(USB_GPX),
 		
 	 	//LEDs and HEX
-	 	.hex_digits_export({hex_num_4, hex_num_3, hex_num_1, hex_num_0}),
+	 	.hex_digits_export(),
 	 	.leds_export({hundreds, signs, LEDR}),
 	 	.keycode_export(keycode)
 		
@@ -176,7 +185,8 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	logic have_pepper, sausage_hit, egg_hit;
 	logic enemy_hurt, enemy1_hurt, enemy_untouchable, enemy1_untouchable;
 	logic [16:0] ingredient_fall, ingredient1_falling, ingredient2_falling;
-	logic game_start, game_win, game_lose;
+	logic game_start, game_win, game_lose, game_idle;
+	logic [8:0] hex_score, hex_score_reg;
 
 	game_control control (
 		.clock(MAX10_CLK1_50), 
@@ -191,7 +201,22 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.keycode(keycode), 
 		.game_start(game_start), 
 		.game_win(game_win), 
-		.game_lose(game_lose)
+		.game_lose(game_lose), 
+		.game_idle(game_idle)
+	);
+
+	game_score fpga_score (
+		.clock(VGA_VS), 
+		.reset(Reset_h | game_idle), 
+		.burger_ingredients(
+			burger1_top_finish + burger1_L_finish + burger1_P_finish + burger1_BB_finish + 
+			burger2_top_finish + burger2_L_finish + burger2_P_finish + burger2_BB_finish + 
+			burger3_top_finish + burger3_L_finish + burger3_P_finish + burger3_BB_finish + 
+			burger4_top_finish + burger4_L_finish + burger4_P_finish + burger4_BB_finish
+		), 
+		.lives(lives), 
+		.score(hex_score), 
+		.game_start(game_start)
 	);
 
 //instantiate a vga_controller, ball, and color_mapper here with the ports.
