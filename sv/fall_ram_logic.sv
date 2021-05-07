@@ -1054,6 +1054,226 @@ always_ff @ (posedge clock)
         ingredient2_falling <= 16'h0008;
 			end
 
+			16'hC000: 
+			begin
+				ingredient1_ycoord <= burger1_topY;
+				ingredient1_xcoord <= burger1_topX;
+        ingredient2_ycoord <= burger1_LtopY;
+        ingredient2_xcoord <= burger1_LtopX;
+				ingredient1_falling <= 16'h8000;
+        ingredient2_falling <= 16'h4000;
+			end
+			16'hA000: 
+			begin
+				ingredient1_ycoord <= burger1_topY;
+				ingredient1_xcoord <= burger1_topX;
+        ingredient2_ycoord <= burger1_PtopY;
+        ingredient2_xcoord <= burger1_PtopX;
+				ingredient1_falling <= 16'h8000;
+        ingredient2_falling <= 16'h2000;
+			end
+			16'h9000: 
+			begin
+				ingredient1_ycoord <= burger1_topY;
+				ingredient1_xcoord <= burger1_topX;
+        ingredient2_ycoord <= burger1_BBtopY;
+        ingredient2_xcoord <= burger1_BBtopX;
+				ingredient1_falling <= 16'h8000;
+        ingredient2_falling <= 16'h1000;
+			end
+			16'h6000: 
+			begin
+				ingredient1_ycoord <= burger1_LtopY;
+				ingredient1_xcoord <= burger1_LtopX;
+        ingredient2_ycoord <= burger1_PtopY;
+        ingredient2_xcoord <= burger1_PtopX;
+				ingredient1_falling <= 16'h4000;
+        ingredient2_falling <= 16'h2000;
+			end
+			16'h5000: 
+			begin
+				ingredient1_ycoord <= burger1_LtopY;
+				ingredient1_xcoord <= burger1_LtopX;
+        ingredient2_ycoord <= burger1_BBtopY;
+        ingredient2_xcoord <= burger1_BBtopX;
+				ingredient1_falling <= 16'h4000;
+        ingredient2_falling <= 16'h1000;
+			end
+			16'h3000: 
+			begin
+				ingredient1_ycoord <= burger1_PtopY;
+				ingredient1_xcoord <= burger1_PtopX;
+        ingredient2_ycoord <= burger1_BBtopY;
+        ingredient2_xcoord <= burger1_BBtopX;
+				ingredient1_falling <= 16'h2000;
+        ingredient2_falling <= 16'h1000;
+			end
+
+			16'h0C00: 
+			begin
+				ingredient1_ycoord <= burger2_topY;
+				ingredient1_xcoord <= burger2_topX;
+        ingredient2_ycoord <= burger2_LtopY;
+        ingredient2_xcoord <= burger2_LtopX;
+				ingredient1_falling <= 16'h0800;
+        ingredient2_falling <= 16'h0400;
+			end
+			16'h0A00: 
+			begin
+				ingredient1_ycoord <= burger2_topY;
+				ingredient1_xcoord <= burger2_topX;
+        ingredient2_ycoord <= burger2_PtopY;
+        ingredient2_xcoord <= burger2_PtopX;
+				ingredient1_falling <= 16'h0800;
+        ingredient2_falling <= 16'h0200;
+			end
+			16'h0900: 
+			begin
+				ingredient1_ycoord <= burger2_topY;
+				ingredient1_xcoord <= burger2_topX;
+        ingredient2_ycoord <= burger2_BBtopY;
+        ingredient2_xcoord <= burger2_BBtopX;
+				ingredient1_falling <= 16'h0800;
+        ingredient2_falling <= 16'h0100;
+			end
+			16'h0600: 
+			begin
+				ingredient1_ycoord <= burger2_LtopY;
+				ingredient1_xcoord <= burger2_LtopX;
+        ingredient2_ycoord <= burger2_PtopY;
+        ingredient2_xcoord <= burger2_PtopX;
+				ingredient1_falling <= 16'h0400;
+        ingredient2_falling <= 16'h0200;
+			end
+			16'h0500: 
+			begin
+				ingredient1_ycoord <= burger2_LtopY;
+				ingredient1_xcoord <= burger2_LtopX;
+        ingredient2_ycoord <= burger2_BBtopY;
+        ingredient2_xcoord <= burger2_BBtopX;
+				ingredient1_falling <= 16'h0400;
+        ingredient2_falling <= 16'h0100;
+			end
+			16'h0300: 
+			begin
+				ingredient1_ycoord <= burger2_PtopY;
+				ingredient1_xcoord <= burger2_PtopX;
+        ingredient2_ycoord <= burger2_BBtopY;
+        ingredient2_xcoord <= burger2_BBtopX;
+				ingredient1_falling <= 16'h0200;
+        ingredient2_falling <= 16'h0100;
+			end
+
+			16'h00C0: 
+			begin
+				ingredient1_ycoord <= burger3_topY;
+				ingredient1_xcoord <= burger3_topX;
+        ingredient2_ycoord <= burger3_LtopY;
+        ingredient2_xcoord <= burger3_LtopX;
+				ingredient1_falling <= 16'h0080;
+        ingredient2_falling <= 16'h0040;
+			end
+			16'h00A0: 
+			begin
+				ingredient1_ycoord <= burger3_topY;
+				ingredient1_xcoord <= burger3_topX;
+        ingredient2_ycoord <= burger3_PtopY;
+        ingredient2_xcoord <= burger3_PtopX;
+				ingredient1_falling <= 16'h0080;
+        ingredient2_falling <= 16'h0020;
+			end
+			16'h0090: 
+			begin
+				ingredient1_ycoord <= burger3_topY;
+				ingredient1_xcoord <= burger3_topX;
+        ingredient2_ycoord <= burger3_BBtopY;
+        ingredient2_xcoord <= burger3_BBtopX;
+				ingredient1_falling <= 16'h0080;
+        ingredient2_falling <= 16'h0010;
+			end
+			16'h0060: 
+			begin
+				ingredient1_ycoord <= burger3_LtopY;
+				ingredient1_xcoord <= burger3_LtopX;
+        ingredient2_ycoord <= burger3_PtopY;
+        ingredient2_xcoord <= burger3_PtopX;
+				ingredient1_falling <= 16'h0040;
+        ingredient2_falling <= 16'h0020;
+			end
+			16'h0050: 
+			begin
+				ingredient1_ycoord <= burger3_LtopY;
+				ingredient1_xcoord <= burger3_LtopX;
+        ingredient2_ycoord <= burger3_BBtopY;
+        ingredient2_xcoord <= burger3_BBtopX;
+				ingredient1_falling <= 16'h0040;
+        ingredient2_falling <= 16'h0010;
+			end
+			16'h0030: 
+			begin
+				ingredient1_ycoord <= burger3_PtopY;
+				ingredient1_xcoord <= burger3_PtopX;
+        ingredient2_ycoord <= burger3_BBtopY;
+        ingredient2_xcoord <= burger3_BBtopX;
+				ingredient1_falling <= 16'h0020;
+        ingredient2_falling <= 16'h0010;
+			end
+
+			16'h000C: 
+			begin
+				ingredient1_ycoord <= burger4_topY;
+				ingredient1_xcoord <= burger4_topX;
+        ingredient2_ycoord <= burger4_LtopY;
+        ingredient2_xcoord <= burger4_LtopX;
+				ingredient1_falling <= 16'h0008;
+        ingredient2_falling <= 16'h0004;
+			end
+			16'h000A: 
+			begin
+				ingredient1_ycoord <= burger4_topY;
+				ingredient1_xcoord <= burger4_topX;
+        ingredient2_ycoord <= burger4_PtopY;
+        ingredient2_xcoord <= burger4_PtopX;
+				ingredient1_falling <= 16'h0008;
+        ingredient2_falling <= 16'h0002;
+			end
+			16'h0009: 
+			begin
+				ingredient1_ycoord <= burger4_topY;
+				ingredient1_xcoord <= burger4_topX;
+        ingredient2_ycoord <= burger4_BBtopY;
+        ingredient2_xcoord <= burger4_BBtopX;
+				ingredient1_falling <= 16'h0008;
+        ingredient2_falling <= 16'h0001;
+			end
+			16'h0006: 
+			begin
+				ingredient1_ycoord <= burger4_LtopY;
+				ingredient1_xcoord <= burger4_LtopX;
+        ingredient2_ycoord <= burger4_PtopY;
+        ingredient2_xcoord <= burger4_PtopX;
+				ingredient1_falling <= 16'h0004;
+        ingredient2_falling <= 16'h0002;
+			end
+			16'h0005: 
+			begin
+				ingredient1_ycoord <= burger4_LtopY;
+				ingredient1_xcoord <= burger4_LtopX;
+        ingredient2_ycoord <= burger4_BBtopY;
+        ingredient2_xcoord <= burger4_BBtopX;
+				ingredient1_falling <= 16'h0004;
+        ingredient2_falling <= 16'h0001;
+			end
+			16'h0003: 
+			begin
+				ingredient1_ycoord <= burger4_PtopY;
+				ingredient1_xcoord <= burger4_PtopX;
+        ingredient2_ycoord <= burger4_BBtopY;
+        ingredient2_xcoord <= burger4_BBtopX;
+				ingredient1_falling <= 16'h0002;
+        ingredient2_falling <= 16'h0001;
+			end
+
       // default: 
 			// begin
 			// 	ingredient1_ycoord <= 10'd92;
