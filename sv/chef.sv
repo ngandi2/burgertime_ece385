@@ -1,9 +1,9 @@
 module chef (
-    input Reset, frame_clk, walk, climb,
-	 input [1:0] enemy_hurt,
-    input [7:0] keycode, 
-    output [9:0] ChefX, ChefY,
-	 output [1:0] lives
+		input logic Reset, frame_clk, walk, climb,
+		input logic [1:0] enemy_hurt,
+		input logic [7:0] keycode, 
+		output logic [9:0] ChefX, ChefY,
+		output logic [1:0] lives
 );
     logic [1:0] lives_remaining;
     logic [9:0] Chef_X_Pos, Chef_X_Motion, Chef_Y_Pos, Chef_Y_Motion, Chef_Size;

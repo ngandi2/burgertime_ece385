@@ -1,8 +1,8 @@
 module enemy (
-    input Reset, frame_clk, walk, climb, pepper_stun,
-	 input [9:0] ChefX, ChefY,
-	 output enemy_hurt, enemy_untouchable,
-    output [9:0] EnemyX, EnemyY
+		input logic Reset, frame_clk, walk, climb, pepper_stun,
+		input logic [9:0] ChefX, ChefY,
+		output logic enemy_hurt, enemy_untouchable,
+		output logic [9:0] EnemyX, EnemyY
 );
     
 	 logic touched_chef, counter, cannot_kill;

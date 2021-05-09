@@ -1,16 +1,16 @@
 module  stages_walls (
-	 input Reset, frame_clk,
-	 input [2:0] Stage,
-	 input [7:0] keycode,
-	 input [9:0] Chef_X_Pos, Chef_Y_Pos,
-    output valid
+		input logic Reset, frame_clk,
+		input logic [2:0] Stage,
+		input logic [7:0] keycode,
+		input logic [9:0] Chef_X_Pos, Chef_Y_Pos,
+		output logic valid
 );
-	 logic move_Valid;
-	 parameter [9:0] Chef_X_Min=0;       // Leftmost point on the X axis
-    parameter [9:0] Chef_X_Max=192;     // Rightmost point on the X axis
-    parameter [9:0] Chef_Y_Min=0;       // Topmost point on the Y axis
-    parameter [9:0] Chef_Y_Max=141;     // Bottommost point on the Y axis
-    
+		logic move_Valid;
+		parameter [9:0] Chef_X_Min=0;       // Leftmost point on the X axis
+		parameter [9:0] Chef_X_Max=192;     // Rightmost point on the X axis
+		parameter [9:0] Chef_Y_Min=0;       // Topmost point on the Y axis
+		parameter [9:0] Chef_Y_Max=141;     // Bottommost point on the Y axis
+
 	 //if (Stage == 3'b0)
 	 //begin
 	 always_ff @ (posedge Reset or posedge frame_clk)

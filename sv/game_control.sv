@@ -1,7 +1,7 @@
 module game_control (
-  input clock, reset, lives, burger_done, 
-  input [7:0] keycode, 
-  output game_start, game_win, game_lose, game_idle
+  input logic clock, reset, lives, burger_done, 
+  input logic [7:0] keycode, 
+  output logic game_start, game_win, game_lose, game_idle
 );
 
   enum logic [1:0] {

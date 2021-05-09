@@ -1,8 +1,8 @@
 module pepper (
-    input Reset, frame_clk,
-	 input [7:0] keycode, 
-	 input [9:0] ChefX, ChefY, EnemyX, EnemyY, Enemy1X, Enemy1Y,
-    output have_pepper, sausage_hit, egg_hit
+		input logic Reset, frame_clk,
+		input logic [7:0] keycode, 
+		input logic [9:0] ChefX, ChefY, EnemyX, EnemyY, Enemy1X, Enemy1Y,
+		output logic have_pepper, sausage_hit, egg_hit
 );
 	 logic sausage_pepper, egg_pepper, pepper_remaining;
 	 logic [9:0] pepper_counter;

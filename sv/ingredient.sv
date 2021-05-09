@@ -1,8 +1,8 @@
 module ingredient (
-    input Reset, frame_clk, fall, 
-    input [9:0] ChefX, ChefY, aboveIngredientX, aboveIngredientY,
-	 output finish, falling,
-    output [9:0] BurgerX, BurgerY
+		input logic Reset, frame_clk, fall, 
+		input logic [9:0] ChefX, ChefY, aboveIngredientX, aboveIngredientY,
+		output logic finish, falling,
+		output logic [9:0] BurgerX, BurgerY
 );
 	
     logic reachedTarget, descending;

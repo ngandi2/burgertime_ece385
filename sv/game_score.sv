@@ -1,8 +1,8 @@
 module game_score (
-  input clock, reset, game_start, 
-  input [3:0] burger_ingredients, 
-  input [1:0] lives, 
-  output [8:0] score
+  input logic clock, reset, game_start, 
+  input logic [3:0] burger_ingredients, 
+  input logic [1:0] lives, 
+  output logic [8:0] score
 );
 
 logic [5:0] frame_count, next_frame_count;

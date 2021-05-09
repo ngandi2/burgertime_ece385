@@ -1,12 +1,12 @@
 module fall_ram_logic (
-  input clock, Reset, 
-  input [16:0] ingredient_fall, 
-  input [9:0] burger1_topX, burger1_topY, burger1_LtopX, burger1_LtopY, burger1_PtopX, burger1_PtopY, burger1_BBtopX, burger1_BBtopY, 
-  input [9:0] burger2_topX, burger2_topY, burger2_LtopX, burger2_LtopY, burger2_PtopX, burger2_PtopY, burger2_BBtopX, burger2_BBtopY, 
-  input [9:0] burger3_topX, burger3_topY, burger3_LtopX, burger3_LtopY, burger3_PtopX, burger3_PtopY, burger3_BBtopX, burger3_BBtopY, 
-  input [9:0] burger4_topX, burger4_topY, burger4_LtopX, burger4_LtopY, burger4_PtopX, burger4_PtopY, burger4_BBtopX, burger4_BBtopY, 
-  output [16:0] ingredient1_falling, ingredient2_falling, 
-  output [9:0] ingredient1_ycoord, ingredient1_xcoord, ingredient2_ycoord, ingredient2_xcoord
+  input logic clock, Reset, 
+  input logic [16:0] ingredient_fall, 
+  input logic [9:0] burger1_topX, burger1_topY, burger1_LtopX, burger1_LtopY, burger1_PtopX, burger1_PtopY, burger1_BBtopX, burger1_BBtopY, 
+  input logic [9:0] burger2_topX, burger2_topY, burger2_LtopX, burger2_LtopY, burger2_PtopX, burger2_PtopY, burger2_BBtopX, burger2_BBtopY, 
+  input logic [9:0] burger3_topX, burger3_topY, burger3_LtopX, burger3_LtopY, burger3_PtopX, burger3_PtopY, burger3_BBtopX, burger3_BBtopY, 
+  input logic [9:0] burger4_topX, burger4_topY, burger4_LtopX, burger4_LtopY, burger4_PtopX, burger4_PtopY, burger4_BBtopX, burger4_BBtopY, 
+  output logic [16:0] ingredient1_falling, ingredient2_falling, 
+  output logic [9:0] ingredient1_ycoord, ingredient1_xcoord, ingredient2_ycoord, ingredient2_xcoord
 );
 
 always_ff @ (posedge clock)
